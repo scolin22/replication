@@ -1,13 +1,11 @@
-206.12.16.155:13112  
 142.103.2.2:13112  
+206.12.16.154:13112  
 
 Name: Amitoj Kooner  
 Student Number: 33263112  
 
-The program is deployed at ssh-linux4.ece.ubc.ca on port 13112
-
 The jar file can be run as
-`java -Xmx64m -cp A3.jar com.s33263112.cpen431.A3 13112` where the last argument is **port**.
+`java -Xmx64m -jar A3.jar 13112` where the last argument is **port**.
 
 The java code can also be run instead. The main function is in *src/com/s33263112/cpen431/A3.java*.
 
