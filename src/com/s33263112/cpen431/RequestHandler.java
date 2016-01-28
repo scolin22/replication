@@ -9,18 +9,15 @@ package com.s33263112.cpen431;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class RequestHandler implements Runnable {
 
-    private static Map<ByteKey, byte[]> store = new ConcurrentHashMap<>();
-    private static Map<ByteKey, Reply> requestCache = Collections.synchronizedMap(new LinkedHashMap<ByteKey, Reply>());
+    private static final Map<ByteKey, byte[]> store = new ConcurrentHashMap<>();
     private static final int MAX_STORE_SIZE = 100000;
-    // TODO: instead of MAX_CACHE_SIZE, give each entry a TTL and remove from set after the time
-    private static final int MAX_CACHE_SIZE = 1000;
+    private static final Cacher cacher = new Cacher(5000);
+
     // 8MB is used as a limit because the programs begins throwing OutOfMemoryError when
     // the amount of free memory reaches 7MB.
     private static final int MIN_FREE_MEMORY = 8388608;
@@ -86,13 +83,10 @@ public class RequestHandler implements Runnable {
 
     private static synchronized void cache(Request request, Reply reply) {
         if (Runtime.getRuntime().freeMemory() <= MIN_FREE_MEMORY) {
-            // Stop adding more items if we have less than MIN_FREE_MEMORY of memory left
-        } else if (requestCache.size() >= MAX_CACHE_SIZE) {
-            // Remove the first item and add the new item
-            requestCache.remove(requestCache.keySet().iterator().next());
-            requestCache.put(new ByteKey(request.getRequestId()), reply);
+            // Stop adding more items if we have less than MIN_FREE_MEMORY of memory left.
+            // The garbage collector doesn't always run right away so we need to be safe.
         } else {
-            requestCache.put(new ByteKey(request.getRequestId()), reply);
+            cacher.cache(request, reply);
         }
     }
 
@@ -140,19 +134,21 @@ public class RequestHandler implements Runnable {
     private void handleShutdown(Request request) {
         sendReply(new Reply(request, ErrorCode.SUCCESS));
         socket.close();
+        cacher.close();
     }
     
     private Reply handleDeleteAll(Request request) {
         store.clear();
+        System.gc();
         Reply reply = new Reply(request, ErrorCode.SUCCESS);
         sendReply(reply);
         return reply;
     }
     
     private boolean returnIfCached(Request request) {
-        ByteKey requestId = new ByteKey(request.getRequestId());
-        Reply reply = requestCache.get(requestId);
+        Reply reply = cacher.get(request);
         if (reply != null) {
+            //System.out.println("Request: " + request.toString() + " CACHED");
             sendReply(reply);
             return true;
         } else {

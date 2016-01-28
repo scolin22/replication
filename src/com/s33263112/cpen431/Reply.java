@@ -14,6 +14,7 @@ public class Reply {
     private byte errorCode;
     private short valueLength = 0;
     private byte[] value = null;
+    private long timestamp = System.currentTimeMillis();
     
     public Reply(Request request, byte errorCode) {
         this.requestId = request.getRequestId();
@@ -62,6 +63,10 @@ public class Reply {
     
     public byte[] getValue() {
         return value;
+    }
+    
+    public long getTimestamp() {
+        return timestamp;
     }
     
     @Override

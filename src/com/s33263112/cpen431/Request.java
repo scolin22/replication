@@ -106,14 +106,15 @@ public class Request {
         sb.append(StringUtils.byteArrayToHexString(requestId));
         sb.append(" ");
         sb.append(command);
-        sb.append(" ");
         if (key != null) {
+            sb.append(" ");
             sb.append(StringUtils.byteArrayToHexString(key));
         }
         if (value != null) {
             sb.append(" ");
             sb.append(valueLength);
-            //sb.append(" ");
+            sb.append(" ");
+            sb.append(value.length);
             //sb.append(StringUtils.byteArrayToHexString(value));
         }
         sb.append(" ");
