@@ -17,7 +17,6 @@ public class RequestHandler implements Runnable {
     private static final Map<ByteKey, byte[]> store = new ConcurrentHashMap<>();
     private static final int MAX_STORE_SIZE = 100000;
     private static final Cacher cacher = new Cacher(5000);
-    private static final Router router = new Router();
 
     // 8MB is used as a limit because the programs begins throwing OutOfMemoryError when
     // the amount of free memory reaches 7MB.
@@ -44,11 +43,11 @@ public class RequestHandler implements Runnable {
             reply = new Reply(request, request.getErrorCode());
             sendReply(reply);
         } else if (request.getCommand() == Command.GET) {
-            if (router.isLocal(request.getKey())) {
+            if (Router.isMe(request.getKey())) {
                 reply = handleGet(request);
             }
             else {
-                router.forward(request);
+                Router.forward(request.getKey());
             }
         } else if (request.getCommand() == Command.PUT) {
             if (router.isLocal(request.getKey())) {

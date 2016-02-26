@@ -10,7 +10,7 @@ import java.nio.ByteOrder;
 
 public class Request {
 
-    private final int MAX_VALUE_LENGTH = 10000;
+    private static final int MAX_VALUE_LENGTH = 10000;
 
     private byte[] requestId;
     private byte command;

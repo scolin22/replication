@@ -1,6 +1,6 @@
 package com.s33263112.cpen431;
 
-public class A3 {
+public class A5 {
 
     public static void main(String[] args) {
         if (args.length != 1) {
