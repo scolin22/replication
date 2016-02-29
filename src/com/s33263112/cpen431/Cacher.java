@@ -21,17 +21,20 @@ public class Cacher implements Runnable {
     public void cache(Request request, Reply reply) {
         requestCache.put(new ByteKey(request.getRequestId()), reply);
     }
-    
+
     public Reply get(Request request) {
         ByteKey key = new ByteKey(request.getRequestId());
         return requestCache.get(key);
     }
-    
+
     @Override
     public void run() {
         while (running) {
             if (requestCache.size() != 0) {
-                ByteKey key = requestCache.keySet().iterator().next();
+                ByteKey key;
+                synchronized (requestCache) {
+                    key = requestCache.keySet().iterator().next();
+                }
                 Reply reply = requestCache.get(key);
                 long sleepFor = (reply.getTimestamp() + timeout) - System.currentTimeMillis();
                 if (sleepFor > 0) {

@@ -18,6 +18,7 @@ public class Router {
     
     private static final InetAddress myIp;
 
+    // This TreeMap will only contain online nodes
     private static final TreeMap<Integer, InetAddress> nodes = new TreeMap<>();
     static {
         try {

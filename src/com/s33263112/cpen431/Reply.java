@@ -33,7 +33,7 @@ public class Reply {
         this.value = value;
     }
     
-    public byte[] getReply() {
+    public byte[] toByteArray() {
         if (valueLength == 0) {
             return ByteBuffer.allocate(17).order(ByteOrder.LITTLE_ENDIAN)
                     .put(requestId)

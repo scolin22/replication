@@ -13,4 +13,5 @@ public class ErrorCode {
     public static byte INVALID_KEY_LENGTH = 0x23;
     public static byte MISSING_VALUE_LENGTH = 0x24;
     public static byte VALUE_TOO_SHORT = 0x25;
+    public static byte INVALID_INTERNAL_COMMAND = 0x26;
 }

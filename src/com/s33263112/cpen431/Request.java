@@ -5,18 +5,24 @@
 package com.s33263112.cpen431;
 
 import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 public class Request {
 
-    private static final int MAX_VALUE_LENGTH = 10000;
+    public static final int MAX_VALUE_LENGTH = 10000;
+    public static final int MAX_REQUEST_LENGTH = 16 + 1 + 32 + 2 + MAX_VALUE_LENGTH + 4 + 2;
 
     private byte[] requestId;
     private byte command;
     private byte[] key = null;
     private short valueLength = 0;
     private byte[] value = null;
+    
+    private InetAddress replyAddress = null;
+    private short replyPort = 0;
     
     private byte errorCode = ErrorCode.SUCCESS;
     
@@ -43,7 +49,8 @@ public class Request {
             return;
         }
         
-        if (command == Command.GET || command == Command.PUT || command == Command.REMOVE) {
+        if (command == Command.GET || command == Command.PUT || command == Command.REMOVE || command == Command.INTERNAL_GET
+                || command == Command.INTERNAL_PUT || command == Command.INTERNAL_REMOVE) {
             if (dataLength >= 32) {
                 key = new byte[32];
                 byteBuffer.get(key, 0, 32);
@@ -54,7 +61,7 @@ public class Request {
             }
         }
 
-        if (command == Command.PUT) {
+        if (command == Command.PUT || command == Command.INTERNAL_PUT) {
             if (dataLength >= 2) {
                 valueLength = byteBuffer.getShort();
                 dataLength -= 2;
@@ -73,6 +80,48 @@ public class Request {
                 byteBuffer.get(value, 0, valueLength);
                 dataLength -= valueLength;
             }
+        }
+        
+        if (command == Command.INTERNAL_PUT || command == Command.INTERNAL_GET || command == Command.INTERNAL_REMOVE) {
+            if (dataLength >= 6) {
+                byte[] buf = new byte[4];
+                byteBuffer.get(buf, 0, 4);
+                try {
+                    replyAddress = InetAddress.getByAddress(buf);
+                } catch (UnknownHostException e) {
+                    errorCode = ErrorCode.INVALID_INTERNAL_COMMAND;
+                    return;
+                }
+                replyPort = byteBuffer.getShort();
+                dataLength -= 6;
+            } else {
+                errorCode = ErrorCode.INVALID_INTERNAL_COMMAND;
+                return;
+            }
+        }
+    }
+    
+    public byte[] toByteArray() {
+        if (command == Command.INTERNAL_GET || command == Command.INTERNAL_REMOVE) {
+            return ByteBuffer.allocate(55).order(ByteOrder.LITTLE_ENDIAN)
+                    .put(requestId)
+                    .put(command)
+                    .put(key)
+                    .put(replyAddress.getAddress())
+                    .putShort(replyPort)
+                    .array();
+        } else if (command == Command.INTERNAL_PUT) {
+            return ByteBuffer.allocate(57 + valueLength).order(ByteOrder.LITTLE_ENDIAN)
+                    .put(requestId)
+                    .put(command)
+                    .put(key)
+                    .putShort(valueLength)
+                    .put(value)
+                    .put(replyAddress.getAddress())
+                    .putShort(replyPort)
+                    .array();
+        } else {
+            return null;
         }
     }
     
@@ -98,6 +147,26 @@ public class Request {
     
     public byte[] getValue() {
         return value;
+    }
+    
+    public InetAddress getReplyAddress() {
+        return replyAddress;
+    }
+    
+    public int getReplyPort() {
+        return replyPort;
+    }
+    
+    public void setCommand(byte command) {
+        this.command = command;
+    }
+    
+    public void setReplyAddress(InetAddress address) {
+        replyAddress = address;
+    }
+    
+    public void setReplyPort(int port) {
+        replyPort = (short)port;
     }
 
     @Override
