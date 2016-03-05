@@ -75,6 +75,8 @@ public class RequestHandler implements Runnable {
         } else if (request.getCommand() == Command.DELETE_ALL) {
             reply = handleDeleteAll(request);
             sendReply(reply);
+        } else if (request.getCommand() == Command.INTERNAL_BROADCAST) {
+            Router.update(packet.getAddress());
         } else {
             reply = new Reply(request, ErrorCode.UNRECOGNIZED_COMMAND);
             sendReply(reply);
@@ -157,7 +159,11 @@ public class RequestHandler implements Runnable {
         Reply reply = Server.cacher.get(request);
         if (reply != null) {
             //System.out.println("Request: " + request.toString() + " CACHED");
-            sendReply(reply);
+            if (request.getCommand() == Command.INTERNAL_GET || request.getCommand() == Command.INTERNAL_PUT || request.getCommand() == Command.INTERNAL_REMOVE) {
+                sendReply(reply, request.getReplyAddress(), request.getReplyPort());
+            } else {
+                sendReply(reply);
+            }
             return true;
         } else {
             return false;

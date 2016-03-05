@@ -21,16 +21,19 @@ public class Server implements Runnable {
     private static volatile boolean running = true;
     public static NetworkHandler networkHandler;
     public static Cacher cacher;
+    private static Broadcaster broadcaster;
 
     public Server(int port) {
         networkHandler = new NetworkHandler(port);
         cacher = new Cacher(5000);
+        broadcaster = new Broadcaster(port);
     }
     
     public static void close() {
         running = false;
-        networkHandler.close();
         cacher.close();
+        broadcaster.close();
+        networkHandler.close();
     }
 
     @Override

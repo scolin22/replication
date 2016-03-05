@@ -18,8 +18,7 @@ public class Router {
     
     private static final InetAddress myIp;
 
-    // This TreeMap will only contain online nodes
-    private static final TreeMap<Integer, InetAddress> nodes = new TreeMap<>();
+    private static final TreeMap<Integer, Node> nodes = new TreeMap<>();
     static {
         try {
             URL whatismyip = new URL("http://checkip.amazonaws.com");
@@ -39,7 +38,7 @@ public class Router {
             while ((line = br.readLine()) != null) {
                 InetAddress ip = InetAddress.getByName(line.split(":")[0]);
                 Integer key = hash(ip.getAddress());
-                nodes.put(key, ip);
+                nodes.put(key, new Node(ip));
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -60,16 +59,36 @@ public class Router {
         return ip.equals(myIp);
     }
 
-    public static InetAddress forward(byte[] key) {
+    public static synchronized InetAddress forward(byte[] key) {
         int hashedKey = hash(key).intValue();
         int previousKey = 0;
-        for (Entry<Integer, InetAddress> entry : nodes.entrySet()) {
+        for (Entry<Integer, Node> entry : nodes.entrySet()) {
             if (previousKey < hashedKey && entry.getKey().intValue() >= hashedKey) {
-                return entry.getValue();
+                Node node = entry.getValue();
+                if (System.currentTimeMillis() - node.getLastUpdateTime() <= 60000) {
+                    return node.getAddress();                    
+                } else {
+                    // This node hasn't broadcasted in over 60s, so check next one
+                    continue;
+                }
             } else {
                 previousKey = entry.getKey().intValue();
             }
         }
-        return nodes.firstEntry().getValue();
+        return nodes.firstEntry().getValue().getAddress();
+    }
+    
+    public static synchronized void update(InetAddress ip) {
+        Integer key = hash(ip.getAddress());
+        Node node = nodes.get(key);
+        if (node == null) {
+            nodes.put(key, new Node(ip));
+        } else {
+            node.updateLastUpdateTime();
+        }
+    }
+    
+    public static TreeMap<Integer, Node> getNodes() {
+        return nodes;
     }
 }

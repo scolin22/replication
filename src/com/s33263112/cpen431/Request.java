@@ -9,6 +9,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.Random;
 
 public class Request {
 
@@ -25,6 +26,8 @@ public class Request {
     private short replyPort = 0;
     
     private byte errorCode = ErrorCode.SUCCESS;
+    
+    private Request() {}
     
     public Request(DatagramPacket packet) {
         byte[] data = packet.getData();
@@ -46,6 +49,10 @@ public class Request {
             dataLength -= 1;
         } else {
             errorCode = ErrorCode.MISSING_COMMAND;
+            return;
+        }
+        
+        if (command == Command.INTERNAL_BROADCAST) {
             return;
         }
         
@@ -189,5 +196,13 @@ public class Request {
         sb.append(" ");
         sb.append(errorCode);
         return sb.toString();
+    }
+    
+    public static Request createBroadcastRequest() {
+        Request request = new Request();
+        request.requestId = new byte[16];
+        new Random().nextBytes(request.requestId);
+        request.command = Command.INTERNAL_BROADCAST;
+        return request;
     }
 }

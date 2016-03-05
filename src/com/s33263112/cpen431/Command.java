@@ -10,4 +10,5 @@ public class Command {
     public static byte INTERNAL_PUT = 0x21;
     public static byte INTERNAL_GET = 0x22;
     public static byte INTERNAL_REMOVE = 0x23;
+    public static byte INTERNAL_BROADCAST = 0x24;
 }
