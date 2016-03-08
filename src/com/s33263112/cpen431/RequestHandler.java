@@ -29,7 +29,7 @@ public class RequestHandler implements Runnable {
     @Override
     public void run() {
         Request request = new Request(packet);
-        System.out.println("Request: " + request.toString());
+        //System.out.println("Request: " + request.toString());
         Reply reply = null;
         if (request.getErrorCode() == ErrorCode.INVALID_REQUEST_ID_LENGTH) {
             // Just drop this request
@@ -39,8 +39,8 @@ public class RequestHandler implements Runnable {
             reply = new Reply(request, request.getErrorCode());
             sendReply(reply);
         } else if (request.getCommand() == Command.GET || request.getCommand() == Command.PUT || request.getCommand() == Command.REMOVE) {
-            InetAddress forwardIp = Router.forward(request.getKey());
-            if (Router.isMe(forwardIp)) {
+            Node forwardNode = Router.forward(request.getKey());
+            if (Router.isMe(forwardNode)) {
                 if (request.getCommand() == Command.GET) {
                     reply = handleGet(request);
                 } else if (request.getCommand() == Command.PUT) {
@@ -59,7 +59,7 @@ public class RequestHandler implements Runnable {
                 } else if (request.getCommand() == Command.REMOVE) {
                     request.setCommand(Command.INTERNAL_REMOVE);
                 }
-                forwardRequest(request, forwardIp);
+                forwardRequest(request, forwardNode);
             }
         } else if (request.getCommand() == Command.INTERNAL_GET) {
             reply = handleGet(request);
@@ -76,7 +76,9 @@ public class RequestHandler implements Runnable {
             reply = handleDeleteAll(request);
             sendReply(reply);
         } else if (request.getCommand() == Command.INTERNAL_BROADCAST) {
-            Router.update(packet.getAddress());
+            Router.update(packet.getAddress(), packet.getPort());
+        } else if (request.getCommand() == Command.IM_SHUTTING_DOWN) {
+            Router.destory(packet.getAddress(), packet.getPort());
         } else {
             reply = new Reply(request, ErrorCode.UNRECOGNIZED_COMMAND);
             sendReply(reply);
@@ -145,6 +147,9 @@ public class RequestHandler implements Runnable {
     }
 
     private void handleShutdown(Request request) {
+        for (Node node : Router.getActiveNodes()) {
+            Server.networkHandler.sendBytes(Request.createImShuttingDownRequest().toByteArray(), node.getAddress(), node.getPort());
+        }
         sendReply(new Reply(request, ErrorCode.SUCCESS));
         Server.close();
     }
@@ -171,17 +176,17 @@ public class RequestHandler implements Runnable {
     }
     
     private void sendReply(Reply reply) {
-        System.out.println("Reply: " + reply.toString());
+        //System.out.println("Reply: " + reply.toString());
         Server.networkHandler.sendBytes(reply.toByteArray(), packet.getAddress(), packet.getPort());
     }
     
     private void sendReply(Reply reply, InetAddress address, int port) {
-        System.out.println("Reply: " + reply.toString());
+        //System.out.println("Reply to " + address.toString() + ":" + port + ": " + reply.toString());
         Server.networkHandler.sendBytes(reply.toByteArray(), address, port);
     }
     
-    private void forwardRequest(Request request, InetAddress forwardIp) {
-        System.out.println("Forwarding Request: " + request.toString());
-        Server.networkHandler.sendBytes(request.toByteArray(), forwardIp, packet.getPort());
+    private void forwardRequest(Request request, Node node) {
+        //System.out.println("Forwarding to " + node.getAddress().toString() + ":" + node.getPort() + ": " + request.toString());
+        Server.networkHandler.sendBytes(request.toByteArray(), node.getAddress(), node.getPort());
     }
 }

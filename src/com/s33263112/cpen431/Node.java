@@ -5,10 +5,12 @@ import java.net.InetAddress;
 public class Node {
 
     private InetAddress address = null;
+    private int port;
     private long lastUpdateTime = System.currentTimeMillis();
     
-    public Node(InetAddress address) {
+    public Node(InetAddress address, int port) {
         this.address = address;
+        this.port = port;
     }
     
     public long getLastUpdateTime() {
@@ -21,5 +23,9 @@ public class Node {
     
     public InetAddress getAddress() {
         return address;
+    }
+    
+    public int getPort() {
+        return port;
     }
 }

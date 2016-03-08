@@ -14,19 +14,21 @@ import java.util.concurrent.TimeUnit;
 
 public class Server implements Runnable {
     
-    private final int NUM_CORE_THREADS = 8;
-    private final int NUM_MAX_THREADS = 16;
-    private final int NUM_MAX_QUEUE = 32;
+    private static final int NUM_CORE_THREADS = 4;
+    private static final int NUM_MAX_THREADS = 8;
+    private static final int NUM_MAX_QUEUE = 16;
     
     private static volatile boolean running = true;
     public static NetworkHandler networkHandler;
     public static Cacher cacher;
     private static Broadcaster broadcaster;
+    public static int port;
 
     public Server(int port) {
+        Server.port = port;
         networkHandler = new NetworkHandler(port);
         cacher = new Cacher(5000);
-        broadcaster = new Broadcaster(port);
+        broadcaster = new Broadcaster();
     }
     
     public static void close() {

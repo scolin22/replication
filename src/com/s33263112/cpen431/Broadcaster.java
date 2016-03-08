@@ -1,14 +1,10 @@
 package com.s33263112.cpen431;
 
-import java.util.Map.Entry;
-
 public class Broadcaster implements Runnable {
 
     private volatile boolean running = true;
-    private int port;
 
-    public Broadcaster(int port) {
-        this.port = port;
+    public Broadcaster() {
         new Thread(this).start();
     }
     
@@ -19,15 +15,11 @@ public class Broadcaster implements Runnable {
     @Override
     public void run() {
         while (running) {
-            synchronized (Router.class) {
-                for (Entry<Integer, Node> entry : Router.getNodes().entrySet()) {
-                    Node node = entry.getValue();
-                    if (System.currentTimeMillis() - node.getLastUpdateTime() <= 60000) {
-                        Server.networkHandler.sendBytes(
-                                Request.createBroadcastRequest().toByteArray(), node.getAddress(), port);
-                    }
-                }
+            for (Node node : Router.getActiveNodes()) {
+                Server.networkHandler.sendBytes(
+                        Request.createBroadcastRequest().toByteArray(), node.getAddress(), node.getPort());
             }
+
             try {
                 Thread.sleep(15000);
             } catch (InterruptedException e) {

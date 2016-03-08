@@ -14,7 +14,7 @@ import java.util.Random;
 public class Request {
 
     public static final int MAX_VALUE_LENGTH = 10000;
-    public static final int MAX_REQUEST_LENGTH = 16 + 1 + 32 + 2 + MAX_VALUE_LENGTH + 4 + 2;
+    public static final int MAX_REQUEST_LENGTH = 16 + 1 + 32 + 2 + MAX_VALUE_LENGTH + 4 + 4;
 
     private byte[] requestId;
     private byte command;
@@ -23,7 +23,7 @@ public class Request {
     private byte[] value = null;
     
     private InetAddress replyAddress = null;
-    private short replyPort = 0;
+    private int replyPort = 0;
     
     private byte errorCode = ErrorCode.SUCCESS;
     
@@ -52,7 +52,7 @@ public class Request {
             return;
         }
         
-        if (command == Command.INTERNAL_BROADCAST) {
+        if (command == Command.INTERNAL_BROADCAST || command == Command.IM_SHUTTING_DOWN) {
             return;
         }
         
@@ -99,8 +99,8 @@ public class Request {
                     errorCode = ErrorCode.INVALID_INTERNAL_COMMAND;
                     return;
                 }
-                replyPort = byteBuffer.getShort();
-                dataLength -= 6;
+                replyPort = byteBuffer.getInt();
+                dataLength -= 8;
             } else {
                 errorCode = ErrorCode.INVALID_INTERNAL_COMMAND;
                 return;
@@ -110,22 +110,27 @@ public class Request {
     
     public byte[] toByteArray() {
         if (command == Command.INTERNAL_GET || command == Command.INTERNAL_REMOVE) {
-            return ByteBuffer.allocate(55).order(ByteOrder.LITTLE_ENDIAN)
+            return ByteBuffer.allocate(57).order(ByteOrder.LITTLE_ENDIAN)
                     .put(requestId)
                     .put(command)
                     .put(key)
                     .put(replyAddress.getAddress())
-                    .putShort(replyPort)
+                    .putInt(replyPort)
                     .array();
         } else if (command == Command.INTERNAL_PUT) {
-            return ByteBuffer.allocate(57 + valueLength).order(ByteOrder.LITTLE_ENDIAN)
+            return ByteBuffer.allocate(59 + valueLength).order(ByteOrder.LITTLE_ENDIAN)
                     .put(requestId)
                     .put(command)
                     .put(key)
                     .putShort(valueLength)
                     .put(value)
                     .put(replyAddress.getAddress())
-                    .putShort(replyPort)
+                    .putInt(replyPort)
+                    .array();
+        } else if (command == Command.INTERNAL_BROADCAST || command == Command.IM_SHUTTING_DOWN) {
+            return ByteBuffer.allocate(17).order(ByteOrder.LITTLE_ENDIAN)
+                    .put(requestId)
+                    .put(command)
                     .array();
         } else {
             return null;
@@ -173,7 +178,7 @@ public class Request {
     }
     
     public void setReplyPort(int port) {
-        replyPort = (short)port;
+        replyPort = port;
     }
 
     @Override
@@ -185,16 +190,23 @@ public class Request {
         if (key != null) {
             sb.append(" ");
             sb.append(StringUtils.byteArrayToHexString(key));
+            sb.append("|");
+            sb.append(Router.hash(key));
         }
         if (value != null) {
             sb.append(" ");
             sb.append(valueLength);
-            sb.append(" ");
-            sb.append(value.length);
             //sb.append(StringUtils.byteArrayToHexString(value));
         }
         sb.append(" ");
         sb.append(errorCode);
+        
+        if (replyAddress != null) {
+            sb.append(" ");
+            sb.append(replyAddress.toString());
+            sb.append(":");
+            sb.append(replyPort);
+        }
         return sb.toString();
     }
     
@@ -203,6 +215,14 @@ public class Request {
         request.requestId = new byte[16];
         new Random().nextBytes(request.requestId);
         request.command = Command.INTERNAL_BROADCAST;
+        return request;
+    }
+    
+    public static Request createImShuttingDownRequest() {
+        Request request = new Request();
+        request.requestId = new byte[16];
+        new Random().nextBytes(request.requestId);
+        request.command = Command.IM_SHUTTING_DOWN;
         return request;
     }
 }
