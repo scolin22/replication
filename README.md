@@ -1,13 +1,15 @@
-142.103.2.2:13112  
-206.12.16.154:13112  
-
-Name: Amitoj Kooner  
-Student Number: 33263112  
+slice_name: ubc_cpen431_1  
+groupid: 1B  
+members:  
+Amitoj Kooner (33263112)  
+Bojan Stefanovic (14842124)  
+Colin Stone (31645112)  
+Kevin Hui (38604112)  
 
 The jar file can be run as
-`java -Xmx64m -jar A3.jar 13112` where the last argument is **port**.
+`java -Xmx64m -jar A5.jar 13112` where the last argument is **port**.
 
-The java code can also be run instead. The main function is in *src/com/s33263112/cpen431/A3.java*.
+The java code can also be run instead. The main function is in *src/com/s33263112/cpen431/A5.java*.
 
 This code works with Java 8.
 
