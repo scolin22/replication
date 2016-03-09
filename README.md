@@ -6,6 +6,8 @@ Bojan Stefanovic (14842124)
 Colin Stone (31645112)  
 Kevin Hui (38604112)  
 
+A list of all the nodes which are currently running the service are located in `src/util/server.list`.
+
 The jar file can be run as
 `java -Xmx64m -jar A5.jar 13112` where the last argument is **port**.
 
