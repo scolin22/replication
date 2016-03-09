@@ -151,6 +151,7 @@ public class RequestHandler implements Runnable {
             Server.networkHandler.sendBytes(Request.createImShuttingDownRequest().toByteArray(), node.getAddress(), node.getPort());
         }
         sendReply(new Reply(request, ErrorCode.SUCCESS));
+        System.out.println("Shutting down because of shutdown command");
         Server.close();
     }
     

@@ -127,4 +127,12 @@ public class Router {
         }
         return activeNodes;
     }
+    
+    public static synchronized List<Node> getAllNodes() {
+        List<Node> activeNodes = new ArrayList<>();
+        for (Entry<Integer, Node> entry : nodes.entrySet()) {
+            activeNodes.add(entry.getValue());
+        }
+        return activeNodes;
+    }
 }
