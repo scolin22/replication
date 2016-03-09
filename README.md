@@ -8,6 +8,8 @@ Kevin Hui (38604112)
 
 A list of all the nodes which are currently running the service are located in `src/util/server.list`.
 
+The shutdown command is handled in `src/com/s33263112/cpen431/RequestHandler.java:149` in the `handleShutdown` function.
+
 The jar file can be run as
 `java -Xmx64m -jar A5.jar 13112` where the last argument is **port**.
 
