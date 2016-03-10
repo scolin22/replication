@@ -6,7 +6,7 @@ Bojan Stefanovic (14842124)
 Colin Stone (31645112)  
 Kevin Hui (38604112)  
 
-A list of all the nodes which are currently running the service are located in `src/util/server.list`.
+A list of all the nodes which are currently running the service are located in `server.list`.
 
 The shutdown command is handled in `src/com/s33263112/cpen431/RequestHandler.java:149` in the `handleShutdown` function.
 
