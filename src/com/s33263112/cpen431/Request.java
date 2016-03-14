@@ -52,7 +52,7 @@ public class Request {
             return;
         }
         
-        if (command == Command.INTERNAL_BROADCAST || command == Command.IM_SHUTTING_DOWN) {
+        if (command == Command.INTERNAL_BROADCAST) {
             return;
         }
         
@@ -127,7 +127,7 @@ public class Request {
                     .put(replyAddress.getAddress())
                     .putInt(replyPort)
                     .array();
-        } else if (command == Command.INTERNAL_BROADCAST || command == Command.IM_SHUTTING_DOWN) {
+        } else if (command == Command.INTERNAL_BROADCAST) {
             return ByteBuffer.allocate(17).order(ByteOrder.LITTLE_ENDIAN)
                     .put(requestId)
                     .put(command)
@@ -215,14 +215,6 @@ public class Request {
         request.requestId = new byte[16];
         new Random().nextBytes(request.requestId);
         request.command = Command.INTERNAL_BROADCAST;
-        return request;
-    }
-    
-    public static Request createImShuttingDownRequest() {
-        Request request = new Request();
-        request.requestId = new byte[16];
-        new Random().nextBytes(request.requestId);
-        request.command = Command.IM_SHUTTING_DOWN;
         return request;
     }
 }

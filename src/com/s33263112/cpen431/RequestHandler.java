@@ -77,8 +77,6 @@ public class RequestHandler implements Runnable {
             sendReply(reply);
         } else if (request.getCommand() == Command.INTERNAL_BROADCAST) {
             Router.update(packet.getAddress(), packet.getPort());
-        } else if (request.getCommand() == Command.IM_SHUTTING_DOWN) {
-            Router.destory(packet.getAddress(), packet.getPort());
         } else {
             reply = new Reply(request, ErrorCode.UNRECOGNIZED_COMMAND);
             sendReply(reply);
@@ -147,9 +145,6 @@ public class RequestHandler implements Runnable {
     }
 
     private void handleShutdown(Request request) {
-        for (Node node : Router.getActiveNodes()) {
-            Server.networkHandler.sendBytes(Request.createImShuttingDownRequest().toByteArray(), node.getAddress(), node.getPort());
-        }
         sendReply(new Reply(request, ErrorCode.SUCCESS));
         System.out.println("Shutting down because of shutdown command");
         Server.close();
