@@ -1,0 +1,1882 @@
+CPEN 431 Test Client
+Build Date: Thu Mar 17 16:54:33 UTC 2016
+[A6 Tests]
+Done building node list.
+The deployment has 20 server nodes.
+Warning! It is recommended to run on 20+ nodes to submit.
+A6 test application targets 20+ nodes.
+If you want to test on a smaller deployment, please use the test application from A5.
+Results server is up. Secret is valid.
+Checking if server is up... 
+[ ... Completed in 0.029 seconds ]
+[OK]
+Sending WIPEOUT to all servers... 
+[ ... Completed in 0.205 seconds ]
+[OK]
+
+[ TEST Single Front-End Basic (PUT -> GET -> REM -> REM -> GET). Value Length = 8 Bytes ]
+TEST_PASSED
+
+[ TEST Single Front-End Basic (PUT -> GET -> REM -> REM -> GET). Value Length = 32 Bytes ]
+TEST_PASSED
+
+[ TEST Single Front-End Basic (PUT -> GET -> REM -> REM -> GET). Value Length = 2048 Bytes ]
+TEST_PASSED
+
+[ TEST Single Front-End Basic (PUT -> GET -> REM -> REM -> GET). Value Length = 10000 Bytes ]
+TEST_PASSED
+[ ... TEST Completed in 1.566 seconds ]
+
+[ TEST Random Front-End Basic (PUT -> GET -> REM -> REM -> GET). Value Length = 8 Bytes ]
+TEST_PASSED
+
+[ TEST Random Front-End Basic (PUT -> GET -> REM -> REM -> GET). Value Length = 32 Bytes ]
+TEST_PASSED
+
+[ TEST Random Front-End Basic (PUT -> GET -> REM -> REM -> GET). Value Length = 2048 Bytes ]
+TEST_PASSED
+
+[ TEST Random Front-End Basic (PUT -> GET -> REM -> REM -> GET). Value Length = 10000 Bytes ]
+TEST_PASSED
+[ ... TEST Completed in 2.307 seconds ]
+
+[ TEST Single Server At-Most-Once Client Policy (PUT -> REM -> REM) ]
+TEST_PASSED
+[ ... TEST Completed in 0.068 seconds ]
+
+[ TEST Single Front-End Performance (1 clients, 60.0 seconds): PUT -> GET (closed loop) ]
+Test time limit reached: 60.0s.
+Test completed after 624 closed loops.
+Checking if server(s) are up... 
+[ ... Completed in 0.013 seconds ]
+[OK]
+Stage 1 Single Front-End: Test Status: TEST_PASSED
+Clients: 1
+Total Requests (without replies): 1248
+Total Requests (including replies): 1248
+Successful Responses: 1248
+Timeout Responses: 0
+Total Failed Responses: 0
+% Success: 100.0
+% Timeout: 0.0
+% Failed: 0.0
+Response Time (Successful requests):
+[max] 272ms, [min] 8ms
+[avg] 47.75320512820513 ms, [stdev] 27.71645563206226ms
+Throughput: 20.774378266804273 requests per second
+Goodput: 20.774378266804273 requests per second
+Retry Rate (Successful requests): 1.0
+Sending WIPEOUT to all servers... 
+[ ... Completed in 0.183 seconds ]
+[OK]
+[ ... TEST Completed in 60.292 seconds ]
+
+[ TEST Single Front-End Performance (16 clients, 60.0 seconds): PUT -> GET (closed loop) ]
+Test time limit reached: 60.0s.
+Test completed after 246 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 247 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 239 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 255 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 260 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 251 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 247 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 251 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 239 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 246 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 249 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 243 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 251 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 247 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 271 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 248 closed loops.
+Checking if server(s) are up... 
+[ ... Completed in 0.009 seconds ]
+[OK]
+Stage 1 Single Front-End: Test Status: TEST_PASSED
+Clients: 16
+Total Requests (without replies): 7980
+Total Requests (including replies): 8014
+Successful Responses: 7980
+Timeout Responses: 0
+Total Failed Responses: 0
+% Success: 100.0
+% Timeout: 0.0
+% Failed: 0.0
+Response Time (Successful requests):
+[max] 2605ms, [min] 10ms
+[avg] 109.4234335839599 ms, [stdev] 97.67351388953313ms
+Throughput: 132.61541529564263 requests per second
+Goodput: 132.61541529564263 requests per second
+Retry Rate (Successful requests): 1.0042606516290726
+Sending WIPEOUT to all servers... 
+[ ... Completed in 0.323 seconds ]
+[OK]
+[ ... TEST Completed in 60.541 seconds ]
+
+[ TEST Single Front-End Performance (32 clients, 60.0 seconds): PUT -> GET (closed loop) ]
+Test time limit reached: 60.0s.
+Test completed after 159 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 163 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 164 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 163 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 163 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 162 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 160 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 163 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 164 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 163 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 162 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 161 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 173 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 165 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 162 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 171 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 163 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 162 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 163 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 165 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 158 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 164 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 162 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 164 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 160 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 166 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 156 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 167 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 167 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 161 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 163 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 160 closed loops.
+Checking if server(s) are up... 
+[ ... Completed in 0.01 seconds ]
+[OK]
+Stage 1 Single Front-End: Test Status: TEST_PASSED
+Clients: 32
+Total Requests (without replies): 10438
+Total Requests (including replies): 10439
+Successful Responses: 10438
+Timeout Responses: 0
+Total Failed Responses: 0
+% Success: 100.0
+% Timeout: 0.0
+% Failed: 0.0
+Response Time (Successful requests):
+[max] 896ms, [min] 10ms
+[avg] 172.24286261735963 ms, [stdev] 77.57237523391575ms
+Throughput: 173.30234102606676 requests per second
+Goodput: 173.30234102606676 requests per second
+Retry Rate (Successful requests): 1.0000958037938303
+Sending WIPEOUT to all servers... 
+[ ... Completed in 0.12 seconds ]
+[OK]
+[ ... TEST Completed in 60.382 seconds ]
+
+[ TEST Random Front-End Performance (1 clients, 60.0 seconds): PUT -> GET (closed loop) ]
+Test time limit reached: 60.0s.
+Test completed after 409 closed loops.
+Checking if server(s) are up... 
+[ ... Completed in 0.189 seconds ]
+[OK]
+TEST_PASSED
+Stage 1 Random Front-End: Test Status: TEST_PASSED
+Clients: 1
+Total Requests (without replies): 818
+Total Requests (including replies): 818
+Successful Responses: 818
+Timeout Responses: 0
+Total Failed Responses: 0
+% Success: 100.0
+% Timeout: 0.0
+% Failed: 0.0
+Response Time (Successful requests):
+[max] 122ms, [min] 7ms
+[avg] 73.19315403422983 ms, [stdev] 27.209085424925053ms
+Throughput: 13.609969552268605 requests per second
+Goodput: 13.609969552268605 requests per second
+Retry Rate (Successful requests): 1.0
+Sending WIPEOUT to all servers... 
+[ ... Completed in 0.187 seconds ]
+[OK]
+[ ... TEST Completed in 60.49 seconds ]
+
+[ TEST Random Front-End Performance (16 clients, 60.0 seconds): PUT -> GET (closed loop) ]
+Test time limit reached: 60.0s.
+Test completed after 215 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 210 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 221 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 214 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 210 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 211 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 207 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 211 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 216 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 204 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 210 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 206 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 211 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 213 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 211 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 211 closed loops.
+Checking if server(s) are up... 
+[ ... Completed in 0.184 seconds ]
+[OK]
+TEST_PASSED
+Stage 1 Random Front-End: Test Status: TEST_PASSED
+Clients: 16
+Total Requests (without replies): 6762
+Total Requests (including replies): 6775
+Successful Responses: 6761
+Timeout Responses: 0
+Total Failed Responses: 1
+% Success: 99.9852114758947
+% Timeout: 0.0
+% Failed: 0.014788524105294291
+Response Time (Successful requests):
+[max] 1764ms, [min] 12ms
+[avg] 132.0100576837746 ms, [stdev] 65.59238138982099ms
+Throughput: 112.41708367275689 requests per second
+Goodput: 112.40045884523948 requests per second
+Retry Rate (Successful requests): 1.0019225081336882
+Sending WIPEOUT to all servers... 
+[ ... Completed in 0.325 seconds ]
+[OK]
+[ ... TEST Completed in 60.681 seconds ]
+
+[ TEST Random Front-End Performance (32 clients, 60.0 seconds): PUT -> GET (closed loop) ]
+Test time limit reached: 60.0s.
+Test completed after 130 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 139 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 142 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 142 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 138 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 137 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 144 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 136 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 141 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 137 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 140 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 139 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 144 closed loops.
+Test time limit reached: 60.0s.
+Test time limit reached: 60.0s.
+Test completed after 140 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 137 closed loops.
+Test completed after 142 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 147 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 135 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 139 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 136 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 136 closed loops.
+Test time limit reached: 60.0s.
+Test time limit reached: 60.0s.
+Test completed after 139 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 136 closed loops.
+Test completed after 136 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 136 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 138 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 145 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 137 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 137 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 136 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 139 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 138 closed loops.
+Checking if server(s) are up... 
+[ ... Completed in 0.264 seconds ]
+[OK]
+TEST_PASSED
+[ CPU load (loadavg, last one minute) 4.28 ]
+Stage 1 Random Front-End: Test Status: TEST_PASSED
+Clients: 32
+Total Requests (without replies): 8876
+Total Requests (including replies): 8877
+Successful Responses: 8876
+Timeout Responses: 0
+Total Failed Responses: 0
+% Success: 100.0
+% Timeout: 0.0
+% Failed: 0.0
+Response Time (Successful requests):
+[max] 891ms, [min] 12ms
+[avg] 205.16369986480396 ms, [stdev] 86.11738660055522ms
+Throughput: 147.32683785084734 requests per second
+Goodput: 147.32683785084734 requests per second
+Retry Rate (Successful requests): 1.0001126633618747
+Sending WIPEOUT to all servers... 
+[ ... Completed in 0.189 seconds ]
+[OK]
+[ ... TEST Completed in 60.841 seconds ]
+
+[ TEST Random Front-End Performance (64 clients, 60.0 seconds): PUT -> GET (closed loop) ]
+Test time limit reached: 60.0s.
+Test completed after 77 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 76 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 73 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 71 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 86 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 79 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 74 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 79 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 81 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 75 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 78 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 77 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 78 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 71 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 81 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 76 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 74 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 73 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 78 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 74 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 79 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 77 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 78 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 79 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 76 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 77 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 79 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 79 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 74 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 80 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 76 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 79 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 80 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 76 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 78 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 75 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 78 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 73 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 76 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 79 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 71 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 78 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 77 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 82 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 71 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 81 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 74 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 79 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 81 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 76 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 80 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 80 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 76 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 78 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 76 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 77 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 75 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 88 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 73 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 74 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 78 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 78 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 72 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 75 closed loops.
+Checking if server(s) are up... 
+[ ... Completed in 0.17 seconds ]
+[OK]
+TEST_PASSED
+[ CPU load (loadavg, last one minute) 4.35 ]
+Stage 1 Random Front-End: Test Status: TEST_PASSED
+Clients: 64
+Total Requests (without replies): 9858
+Total Requests (including replies): 10040
+Successful Responses: 9858
+Timeout Responses: 0
+Total Failed Responses: 0
+% Success: 100.0
+% Timeout: 0.0
+% Failed: 0.0
+Response Time (Successful requests):
+[max] 2517ms, [min] 16ms
+[avg] 375.21708257252993 ms, [stdev] 198.02028537217498ms
+Throughput: 163.04995038041682 requests per second
+Goodput: 163.04995038041682 requests per second
+Retry Rate (Successful requests): 1.0184621627104888
+Sending WIPEOUT to all servers... 
+[ ... Completed in 0.218 seconds ]
+[OK]
+[ ... TEST Completed in 60.865 seconds ]
+
+[ TEST Random Front-End Performance (128 clients, 60.0 seconds): PUT -> GET (closed loop) ]
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 53 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 45 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 53 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 53 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 54 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 53 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 53 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 46 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 46 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 53 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 46 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 54 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 53 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 53 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 46 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 46 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 54 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 53 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 46 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 54 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 53 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 46 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 54 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 45 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 53 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 55 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 55 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 54 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 56 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 54 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 46 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 54 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Checking if server(s) are up... 
+[ ... Completed in 0.152 seconds ]
+[OK]
+TEST_PASSED
+[ CPU load (loadavg, last one minute) 6.36 ]
+Stage 1 Random Front-End: Test Status: TEST_PASSED
+Clients: 128
+Total Requests (without replies): 12818
+Total Requests (including replies): 14228
+Successful Responses: 12818
+Timeout Responses: 0
+Total Failed Responses: 0
+% Success: 100.0
+% Timeout: 0.0
+% Failed: 0.0
+Response Time (Successful requests):
+[max] 2364ms, [min] 15ms
+[avg] 573.5620221563427 ms, [stdev] 283.62439192171325ms
+Throughput: 210.93685717576975 requests per second
+Goodput: 210.93685717576975 requests per second
+Retry Rate (Successful requests): 1.11000156030582
+Sending WIPEOUT to all servers... 
+[ ... Completed in 0.148 seconds ]
+[OK]
+[ ... TEST Completed in 61.09 seconds ]
+
+[ TEST Capacity Insert (Value Size = 10000 bytes, Limit = 2000 PUTs, ~19.07 MiB) ]
+Issuing puts... 
+[DONE in 30.092s]
+Confirming... 
+[DONE in 26.796s]
+TEST_PASSED
+[ ... TEST Completed in 56.908 seconds ]
+To shutdown - 3 nodes.
+
+[ TEST Crash; Key Recovery ]
+Checking if server(s) are up... 
+[ ... Completed in 0.09 seconds ]
+[OK]
+Checking if server(s) are up... 
+[ ... Completed in 0.11 seconds ]
+[OK]
+Determining if storage was successful... 
+[DONE in 28.574s]
+Sending SHUTDOWN to 3 servers.
+[ ... Completed in 0.1 seconds ]
+Checking if server(s) are up... 
+[ ... Completed in 22.881 seconds ]
+[OK]
+Checking if server(s) are up... 
+[ ... Completed in 0.154 seconds ]
+[OK]
+Attempting retrieval of keys... 
+[DONE in 54.83s]
+Checking if server(s) are up... 
+[ ... Completed in 22.848 seconds ]
+[OK]
+Checking if server(s) are up... 
+[ ... Completed in 0.113 seconds ]
+[OK]
+Of 1998 usable puts:
+Failed: 345 Timed out: 61 Invalid value: 0
+Expecting 15.0% keys to fail. Actual failed: 20.32032032032032%
+TEST_PASSED
+Sending WIPEOUT to all servers... 
+[ ... Completed in 0.116 seconds ]
+[OK]
+[ ... TEST Completed in 129.827 seconds ]
+
+[ TEST Single Front-End Performance (1 clients, 60.0 seconds): PUT -> GET (closed loop) ]
+Test time limit reached: 60.0s.
+Test completed after 596 closed loops.
+Checking if server(s) are up... 
+[ ... Completed in 0.01 seconds ]
+[OK]
+Stage 2 Single Front-End: Test Status: TEST_PASSED
+Clients: 1
+Total Requests (without replies): 1192
+Total Requests (including replies): 1192
+Successful Responses: 1192
+Timeout Responses: 0
+Total Failed Responses: 0
+% Success: 100.0
+% Timeout: 0.0
+% Failed: 0.0
+Response Time (Successful requests):
+[max] 97ms, [min] 7ms
+[avg] 50.18624161073826 ms, [stdev] 27.341652934732558ms
+Throughput: 19.80987834873363 requests per second
+Goodput: 19.80987834873363 requests per second
+Retry Rate (Successful requests): 1.0
+Sending WIPEOUT to all servers... 
+[ ... Completed in 0.254 seconds ]
+[OK]
+[ ... TEST Completed in 60.443 seconds ]
+
+[ TEST Single Front-End Performance (16 clients, 60.0 seconds): PUT -> GET (closed loop) ]
+Test time limit reached: 60.0s.
+Test completed after 226 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 234 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 235 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 230 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 238 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 222 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 237 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 231 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 233 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 233 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 229 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 237 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 237 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 231 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 218 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 235 closed loops.
+Checking if server(s) are up... 
+[ ... Completed in 0.009 seconds ]
+[OK]
+Stage 2 Single Front-End: Test Status: TEST_PASSED
+Clients: 16
+Total Requests (without replies): 7412
+Total Requests (including replies): 7446
+Successful Responses: 7412
+Timeout Responses: 0
+Total Failed Responses: 0
+% Success: 100.0
+% Timeout: 0.0
+% Failed: 0.0
+Response Time (Successful requests):
+[max] 3218ms, [min] 11ms
+[avg] 97.99757150566649 ms, [stdev] 110.04028842996965ms
+Throughput: 123.05342497592721 requests per second
+Goodput: 123.05342497592721 requests per second
+Retry Rate (Successful requests): 1.0045871559633028
+Sending WIPEOUT to all servers... 
+[ ... Completed in 0.122 seconds ]
+[OK]
+[ ... TEST Completed in 60.376 seconds ]
+
+[ TEST Single Front-End Performance (32 clients, 60.0 seconds): PUT -> GET (closed loop) ]
+Test time limit reached: 60.0s.
+Test completed after 156 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 164 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 169 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 167 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 166 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 171 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 167 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 167 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 165 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 162 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 156 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 167 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 155 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 169 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 165 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 160 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 164 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 165 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 165 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 166 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 159 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 164 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 163 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 161 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 161 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 165 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 163 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 156 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 161 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 163 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 165 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 162 closed loops.
+Checking if server(s) are up... 
+[ ... Completed in 0.012 seconds ]
+[OK]
+Stage 2 Single Front-End: Test Status: TEST_PASSED
+Clients: 32
+Total Requests (without replies): 10458
+Total Requests (including replies): 10460
+Successful Responses: 10458
+Timeout Responses: 0
+Total Failed Responses: 0
+% Success: 100.0
+% Timeout: 0.0
+% Failed: 0.0
+Response Time (Successful requests):
+[max] 824ms, [min] 11ms
+[avg] 168.2194492254733 ms, [stdev] 76.15276099194348ms
+Throughput: 173.6690026238002 requests per second
+Goodput: 173.6690026238002 requests per second
+Retry Rate (Successful requests): 1.0001912411550966
+Sending WIPEOUT to all servers... 
+[ ... Completed in 0.229 seconds ]
+[OK]
+[ ... TEST Completed in 60.467 seconds ]
+
+[ TEST Random Front-End Performance (1 clients, 60.0 seconds): PUT -> GET (closed loop) ]
+Test time limit reached: 60.0s.
+Test completed after 416 closed loops.
+Checking if server(s) are up... 
+[ ... Completed in 0.114 seconds ]
+[OK]
+TEST_PASSED
+Stage 2 Random Front-End: Test Status: TEST_PASSED
+Clients: 1
+Total Requests (without replies): 832
+Total Requests (including replies): 832
+Successful Responses: 832
+Timeout Responses: 0
+Total Failed Responses: 0
+% Success: 100.0
+% Timeout: 0.0
+% Failed: 0.0
+Response Time (Successful requests):
+[max] 107ms, [min] 8ms
+[avg] 71.93389423076923 ms, [stdev] 24.180594675760748ms
+Throughput: 13.849124442372995 requests per second
+Goodput: 13.849124442372995 requests per second
+Retry Rate (Successful requests): 1.0
+Sending WIPEOUT to all servers... 
+[ ... Completed in 0.136 seconds ]
+[OK]
+[ ... TEST Completed in 60.33 seconds ]
+
+[ TEST Random Front-End Performance (16 clients, 60.0 seconds): PUT -> GET (closed loop) ]
+Test time limit reached: 60.0s.
+Test completed after 217 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 208 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 219 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 221 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 217 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 215 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 217 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 217 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 212 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 214 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 221 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 220 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 210 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 212 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 214 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 217 closed loops.
+Checking if server(s) are up... 
+[ ... Completed in 0.168 seconds ]
+[OK]
+TEST_PASSED
+Stage 2 Random Front-End: Test Status: TEST_PASSED
+Clients: 16
+Total Requests (without replies): 6902
+Total Requests (including replies): 6905
+Successful Responses: 6902
+Timeout Responses: 0
+Total Failed Responses: 0
+% Success: 100.0
+% Timeout: 0.0
+% Failed: 0.0
+Response Time (Successful requests):
+[max] 764ms, [min] 16ms
+[avg] 129.34569689944942 ms, [stdev] 46.5316952442147ms
+Throughput: 114.59786145978615 requests per second
+Goodput: 114.59786145978615 requests per second
+Retry Rate (Successful requests): 1.0004346566212692
+Sending WIPEOUT to all servers... 
+[ ... Completed in 0.221 seconds ]
+[OK]
+[ ... TEST Completed in 60.623 seconds ]
+
+[ TEST Random Front-End Performance (32 clients, 60.0 seconds): PUT -> GET (closed loop) ]
+Test time limit reached: 60.0s.
+Test completed after 129 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 131 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 131 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 133 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 131 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 128 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 134 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 129 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 129 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 137 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 131 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 124 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 137 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 125 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 132 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 135 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 132 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 128 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 135 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 136 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 129 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 134 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 133 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 135 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 131 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 133 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 131 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 128 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 131 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 136 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 132 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 134 closed loops.
+Checking if server(s) are up... 
+[ ... Completed in 0.118 seconds ]
+[OK]
+TEST_PASSED
+[ CPU load (loadavg, last one minute) 4.02 ]
+Stage 2 Random Front-End: Test Status: TEST_PASSED
+Clients: 32
+Total Requests (without replies): 8428
+Total Requests (including replies): 8480
+Successful Responses: 8428
+Timeout Responses: 0
+Total Failed Responses: 0
+% Success: 100.0
+% Timeout: 0.0
+% Failed: 0.0
+Response Time (Successful requests):
+[max] 2921ms, [min] 13ms
+[avg] 216.89594209776934 ms, [stdev] 146.3987473643653ms
+Throughput: 139.69137951038402 requests per second
+Goodput: 139.69137951038402 requests per second
+Retry Rate (Successful requests): 1.0061699098243948
+Sending WIPEOUT to all servers... 
+[ ... Completed in 0.146 seconds ]
+[OK]
+[ ... TEST Completed in 60.61 seconds ]
+
+[ TEST Random Front-End Performance (64 clients, 60.0 seconds): PUT -> GET (closed loop) ]
+Test time limit reached: 60.0s.
+Test completed after 82 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 78 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 79 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 79 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 81 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 85 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 84 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 81 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 80 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 75 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 78 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 78 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 80 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 79 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 81 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 83 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 77 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 87 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 83 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 82 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 80 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 83 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 79 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 78 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 84 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 81 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 85 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 84 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 82 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 79 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 78 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 76 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 88 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 84 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 78 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 82 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 79 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 81 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 81 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 77 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 78 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 79 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 79 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 75 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 78 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 79 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 80 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 82 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 81 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 82 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 81 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 80 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 88 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 79 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 87 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 80 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 80 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 75 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 79 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 82 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 82 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 81 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 83 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 83 closed loops.
+Checking if server(s) are up... 
+[ ... Completed in 0.103 seconds ]
+[OK]
+TEST_PASSED
+[ CPU load (loadavg, last one minute) 4.31 ]
+Stage 2 Random Front-End: Test Status: TEST_PASSED
+Clients: 64
+Total Requests (without replies): 10328
+Total Requests (including replies): 10450
+Successful Responses: 10328
+Timeout Responses: 0
+Total Failed Responses: 0
+% Success: 100.0
+% Timeout: 0.0
+% Failed: 0.0
+Response Time (Successful requests):
+[max] 1190ms, [min] 17ms
+[avg] 357.8662858249419 ms, [stdev] 173.07951476007196ms
+Throughput: 171.05568253337307 requests per second
+Goodput: 171.05568253337307 requests per second
+Retry Rate (Successful requests): 1.0118125484120837
+Sending WIPEOUT to all servers... 
+[ ... Completed in 0.149 seconds ]
+[OK]
+[ ... TEST Completed in 60.644 seconds ]
+
+[ TEST Random Front-End Performance (128 clients, 60.0 seconds): PUT -> GET (closed loop) ]
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 46 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 46 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 53 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 54 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 46 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 53 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 55 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 56 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 55 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 45 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 53 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 53 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 46 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 44 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 53 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 46 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 53 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 46 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 45 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 53 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 51 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 54 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 56 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 50 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 53 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 53 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 46 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 49 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 48 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 47 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 52 closed loops.
+Test time limit reached: 60.0s.
+Test completed after 53 closed loops.
+Checking if server(s) are up... 
+[ ... Completed in 0.1 seconds ]
+[OK]
+TEST_PASSED
+[ CPU load (loadavg, last one minute) 6.67 ]
+Stage 2 Random Front-End: Test Status: TEST_PASSED
+Clients: 128
+Total Requests (without replies): 12688
+Total Requests (including replies): 14132
+Successful Responses: 12688
+Timeout Responses: 0
+Total Failed Responses: 0
+% Success: 100.0
+% Timeout: 0.0
+% Failed: 0.0
+Response Time (Successful requests):
+[max] 3415ms, [min] 17ms
+[avg] 582.796264186633 ms, [stdev] 307.9826979558135ms
+Throughput: 208.2355451248133 requests per second
+Goodput: 208.2355451248133 requests per second
+Retry Rate (Successful requests): 1.1138083228247162
+Sending WIPEOUT to all servers... 
+[ ... Completed in 0.186 seconds ]
+[OK]
+[ ... TEST Completed in 61.231 seconds ]
+Checking if server(s) are up... 
+[ ... Completed in 22.863 seconds ]
+[OK]
+[ ... TEST Completed in 22.863 seconds ]
+
+Results Summary:
+Client Local Hostname : ip-172-31-43-208
+Client Local IP : ip-172-31-43-208/172.31.43.208
+Insert Capacity (MiB) : 19.07
+Server Count : 20
+Server List : 128.208.4.197_45111_128.208.4.198_45111_128.223.8.111_45111_128.223.8.112_45111_128.223.8.114_45111_129.97.74.12_45111_129.97.74.14_45111_134.117.226.180_45111_134.197.113.3_45111_142.103.2.2_45111_153.90.1.34_45111_156.56.250.226_45111_165.230.49.118_45111_206.207.248.35_45111_206.207.248.38_45111_156.56.250.227_45111_216.48.80.12_45111_129.63.159.102_45111_149.43.80.20_45111_204.85.191.11_45111_
+Stage 1 Random Front-End: 1 Client(s) % Failed : 0.0
+Stage 1 Random Front-End: 1 Client(s) % Success : 100.0
+Stage 1 Random Front-End: 1 Client(s) % Timeout : 0.0
+Stage 1 Random Front-End: 1 Client(s) Average Response Time (ms) : 74.0
+Stage 1 Random Front-End: 1 Client(s) Goodput (Requests per Second) : 14.0
+Stage 1 Random Front-End: 1 Client(s) Maximum Response Time (ms) : 122.0
+Stage 1 Random Front-End: 1 Client(s) STDEV Response Time (ms) : 28.0
+Stage 1 Random Front-End: 1 Client(s) Successful Responses : 818
+Stage 1 Random Front-End: 1 Client(s) Timeout Responses : 0
+Stage 1 Random Front-End: 1 Client(s) Total Failed Responses : 0
+Stage 1 Random Front-End: 1 Client(s) Total Requests (including replies) : 818
+Stage 1 Random Front-End: 1 Client(s) Total Requests (without replies) : 818
+Stage 1 Random Front-End: 128 Client(s) % Failed : 0.0
+Stage 1 Random Front-End: 128 Client(s) % Success : 100.0
+Stage 1 Random Front-End: 128 Client(s) % Timeout : 0.0
+Stage 1 Random Front-End: 128 Client(s) Average Response Time (ms) : 574.0
+Stage 1 Random Front-End: 128 Client(s) CPU load (loadavg - last one minute) : 6.36
+Stage 1 Random Front-End: 128 Client(s) Goodput (Requests per Second) : 211.0
+Stage 1 Random Front-End: 128 Client(s) Maximum Response Time (ms) : 2364.0
+Stage 1 Random Front-End: 128 Client(s) STDEV Response Time (ms) : 284.0
+Stage 1 Random Front-End: 128 Client(s) Successful Responses : 12818
+Stage 1 Random Front-End: 128 Client(s) Timeout Responses : 0
+Stage 1 Random Front-End: 128 Client(s) Total Failed Responses : 0
+Stage 1 Random Front-End: 128 Client(s) Total Requests (including replies) : 14228
+Stage 1 Random Front-End: 128 Client(s) Total Requests (without replies) : 12818
+Stage 1 Random Front-End: 16 Client(s) % Failed : 0.014788524105294291
+Stage 1 Random Front-End: 16 Client(s) % Success : 99.9852114758947
+Stage 1 Random Front-End: 16 Client(s) % Timeout : 0.0
+Stage 1 Random Front-End: 16 Client(s) Average Response Time (ms) : 133.0
+Stage 1 Random Front-End: 16 Client(s) Goodput (Requests per Second) : 113.0
+Stage 1 Random Front-End: 16 Client(s) Maximum Response Time (ms) : 1764.0
+Stage 1 Random Front-End: 16 Client(s) STDEV Response Time (ms) : 66.0
+Stage 1 Random Front-End: 16 Client(s) Successful Responses : 6761
+Stage 1 Random Front-End: 16 Client(s) Timeout Responses : 0
+Stage 1 Random Front-End: 16 Client(s) Total Failed Responses : 1
+Stage 1 Random Front-End: 16 Client(s) Total Requests (including replies) : 6775
+Stage 1 Random Front-End: 16 Client(s) Total Requests (without replies) : 6762
+Stage 1 Random Front-End: 32 Client(s) % Failed : 0.0
+Stage 1 Random Front-End: 32 Client(s) % Success : 100.0
+Stage 1 Random Front-End: 32 Client(s) % Timeout : 0.0
+Stage 1 Random Front-End: 32 Client(s) Average Response Time (ms) : 206.0
+Stage 1 Random Front-End: 32 Client(s) CPU load (loadavg - last one minute) : 4.28
+Stage 1 Random Front-End: 32 Client(s) Goodput (Requests per Second) : 148.0
+Stage 1 Random Front-End: 32 Client(s) Maximum Response Time (ms) : 891.0
+Stage 1 Random Front-End: 32 Client(s) STDEV Response Time (ms) : 87.0
+Stage 1 Random Front-End: 32 Client(s) Successful Responses : 8876
+Stage 1 Random Front-End: 32 Client(s) Timeout Responses : 0
+Stage 1 Random Front-End: 32 Client(s) Total Failed Responses : 0
+Stage 1 Random Front-End: 32 Client(s) Total Requests (including replies) : 8877
+Stage 1 Random Front-End: 32 Client(s) Total Requests (without replies) : 8876
+Stage 1 Random Front-End: 64 Client(s) % Failed : 0.0
+Stage 1 Random Front-End: 64 Client(s) % Success : 100.0
+Stage 1 Random Front-End: 64 Client(s) % Timeout : 0.0
+Stage 1 Random Front-End: 64 Client(s) Average Response Time (ms) : 376.0
+Stage 1 Random Front-End: 64 Client(s) CPU load (loadavg - last one minute) : 4.35
+Stage 1 Random Front-End: 64 Client(s) Goodput (Requests per Second) : 164.0
+Stage 1 Random Front-End: 64 Client(s) Maximum Response Time (ms) : 2517.0
+Stage 1 Random Front-End: 64 Client(s) STDEV Response Time (ms) : 199.0
+Stage 1 Random Front-End: 64 Client(s) Successful Responses : 9858
+Stage 1 Random Front-End: 64 Client(s) Timeout Responses : 0
+Stage 1 Random Front-End: 64 Client(s) Total Failed Responses : 0
+Stage 1 Random Front-End: 64 Client(s) Total Requests (including replies) : 10040
+Stage 1 Random Front-End: 64 Client(s) Total Requests (without replies) : 9858
+Stage 1 Single Front-End: 1 Client(s) % Failed : 0.0
+Stage 1 Single Front-End: 1 Client(s) % Success : 100.0
+Stage 1 Single Front-End: 1 Client(s) % Timeout : 0.0
+Stage 1 Single Front-End: 1 Client(s) Average Response Time (ms) : 48.0
+Stage 1 Single Front-End: 1 Client(s) Goodput (Requests per Second) : 21.0
+Stage 1 Single Front-End: 1 Client(s) Maximum Response Time (ms) : 272.0
+Stage 1 Single Front-End: 1 Client(s) STDEV Response Time (ms) : 28.0
+Stage 1 Single Front-End: 1 Client(s) Successful Responses : 1248
+Stage 1 Single Front-End: 1 Client(s) Timeout Responses : 0
+Stage 1 Single Front-End: 1 Client(s) Total Failed Responses : 0
+Stage 1 Single Front-End: 1 Client(s) Total Requests (including replies) : 1248
+Stage 1 Single Front-End: 1 Client(s) Total Requests (without replies) : 1248
+Stage 1 Single Front-End: 16 Client(s) % Failed : 0.0
+Stage 1 Single Front-End: 16 Client(s) % Success : 100.0
+Stage 1 Single Front-End: 16 Client(s) % Timeout : 0.0
+Stage 1 Single Front-End: 16 Client(s) Average Response Time (ms) : 110.0
+Stage 1 Single Front-End: 16 Client(s) Goodput (Requests per Second) : 133.0
+Stage 1 Single Front-End: 16 Client(s) Maximum Response Time (ms) : 2605.0
+Stage 1 Single Front-End: 16 Client(s) STDEV Response Time (ms) : 98.0
+Stage 1 Single Front-End: 16 Client(s) Successful Responses : 7980
+Stage 1 Single Front-End: 16 Client(s) Timeout Responses : 0
+Stage 1 Single Front-End: 16 Client(s) Total Failed Responses : 0
+Stage 1 Single Front-End: 16 Client(s) Total Requests (including replies) : 8014
+Stage 1 Single Front-End: 16 Client(s) Total Requests (without replies) : 7980
+Stage 1 Single Front-End: 32 Client(s) % Failed : 0.0
+Stage 1 Single Front-End: 32 Client(s) % Success : 100.0
+Stage 1 Single Front-End: 32 Client(s) % Timeout : 0.0
+Stage 1 Single Front-End: 32 Client(s) Average Response Time (ms) : 173.0
+Stage 1 Single Front-End: 32 Client(s) Goodput (Requests per Second) : 174.0
+Stage 1 Single Front-End: 32 Client(s) Maximum Response Time (ms) : 896.0
+Stage 1 Single Front-End: 32 Client(s) STDEV Response Time (ms) : 78.0
+Stage 1 Single Front-End: 32 Client(s) Successful Responses : 10438
+Stage 1 Single Front-End: 32 Client(s) Timeout Responses : 0
+Stage 1 Single Front-End: 32 Client(s) Total Failed Responses : 0
+Stage 1 Single Front-End: 32 Client(s) Total Requests (including replies) : 10439
+Stage 1 Single Front-End: 32 Client(s) Total Requests (without replies) : 10438
+Stage 2 Random Front-End: 1 Client(s) % Failed : 0.0
+Stage 2 Random Front-End: 1 Client(s) % Success : 100.0
+Stage 2 Random Front-End: 1 Client(s) % Timeout : 0.0
+Stage 2 Random Front-End: 1 Client(s) Average Response Time (ms) : 72.0
+Stage 2 Random Front-End: 1 Client(s) Goodput (Requests per Second) : 14.0
+Stage 2 Random Front-End: 1 Client(s) Maximum Response Time (ms) : 107.0
+Stage 2 Random Front-End: 1 Client(s) STDEV Response Time (ms) : 25.0
+Stage 2 Random Front-End: 1 Client(s) Successful Responses : 832
+Stage 2 Random Front-End: 1 Client(s) Timeout Responses : 0
+Stage 2 Random Front-End: 1 Client(s) Total Failed Responses : 0
+Stage 2 Random Front-End: 1 Client(s) Total Requests (including replies) : 832
+Stage 2 Random Front-End: 1 Client(s) Total Requests (without replies) : 832
+Stage 2 Random Front-End: 128 Client(s) % Failed : 0.0
+Stage 2 Random Front-End: 128 Client(s) % Success : 100.0
+Stage 2 Random Front-End: 128 Client(s) % Timeout : 0.0
+Stage 2 Random Front-End: 128 Client(s) Average Response Time (ms) : 583.0
+Stage 2 Random Front-End: 128 Client(s) CPU load (loadavg - last one minute) : 6.67
+Stage 2 Random Front-End: 128 Client(s) Goodput (Requests per Second) : 209.0
+Stage 2 Random Front-End: 128 Client(s) Maximum Response Time (ms) : 3415.0
+Stage 2 Random Front-End: 128 Client(s) STDEV Response Time (ms) : 308.0
+Stage 2 Random Front-End: 128 Client(s) Successful Responses : 12688
+Stage 2 Random Front-End: 128 Client(s) Timeout Responses : 0
+Stage 2 Random Front-End: 128 Client(s) Total Failed Responses : 0
+Stage 2 Random Front-End: 128 Client(s) Total Requests (including replies) : 14132
+Stage 2 Random Front-End: 128 Client(s) Total Requests (without replies) : 12688
+Stage 2 Random Front-End: 16 Client(s) % Failed : 0.0
+Stage 2 Random Front-End: 16 Client(s) % Success : 100.0
+Stage 2 Random Front-End: 16 Client(s) % Timeout : 0.0
+Stage 2 Random Front-End: 16 Client(s) Average Response Time (ms) : 130.0
+Stage 2 Random Front-End: 16 Client(s) Goodput (Requests per Second) : 115.0
+Stage 2 Random Front-End: 16 Client(s) Maximum Response Time (ms) : 764.0
+Stage 2 Random Front-End: 16 Client(s) STDEV Response Time (ms) : 47.0
+Stage 2 Random Front-End: 16 Client(s) Successful Responses : 6902
+Stage 2 Random Front-End: 16 Client(s) Timeout Responses : 0
+Stage 2 Random Front-End: 16 Client(s) Total Failed Responses : 0
+Stage 2 Random Front-End: 16 Client(s) Total Requests (including replies) : 6905
+Stage 2 Random Front-End: 16 Client(s) Total Requests (without replies) : 6902
+Stage 2 Random Front-End: 32 Client(s) % Failed : 0.0
+Stage 2 Random Front-End: 32 Client(s) % Success : 100.0
+Stage 2 Random Front-End: 32 Client(s) % Timeout : 0.0
+Stage 2 Random Front-End: 32 Client(s) Average Response Time (ms) : 217.0
+Stage 2 Random Front-End: 32 Client(s) CPU load (loadavg - last one minute) : 4.02
+Stage 2 Random Front-End: 32 Client(s) Goodput (Requests per Second) : 140.0
+Stage 2 Random Front-End: 32 Client(s) Maximum Response Time (ms) : 2921.0
+Stage 2 Random Front-End: 32 Client(s) STDEV Response Time (ms) : 147.0
+Stage 2 Random Front-End: 32 Client(s) Successful Responses : 8428
+Stage 2 Random Front-End: 32 Client(s) Timeout Responses : 0
+Stage 2 Random Front-End: 32 Client(s) Total Failed Responses : 0
+Stage 2 Random Front-End: 32 Client(s) Total Requests (including replies) : 8480
+Stage 2 Random Front-End: 32 Client(s) Total Requests (without replies) : 8428
+Stage 2 Random Front-End: 64 Client(s) % Failed : 0.0
+Stage 2 Random Front-End: 64 Client(s) % Success : 100.0
+Stage 2 Random Front-End: 64 Client(s) % Timeout : 0.0
+Stage 2 Random Front-End: 64 Client(s) Average Response Time (ms) : 358.0
+Stage 2 Random Front-End: 64 Client(s) CPU load (loadavg - last one minute) : 4.31
+Stage 2 Random Front-End: 64 Client(s) Goodput (Requests per Second) : 172.0
+Stage 2 Random Front-End: 64 Client(s) Maximum Response Time (ms) : 1190.0
+Stage 2 Random Front-End: 64 Client(s) STDEV Response Time (ms) : 174.0
+Stage 2 Random Front-End: 64 Client(s) Successful Responses : 10328
+Stage 2 Random Front-End: 64 Client(s) Timeout Responses : 0
+Stage 2 Random Front-End: 64 Client(s) Total Failed Responses : 0
+Stage 2 Random Front-End: 64 Client(s) Total Requests (including replies) : 10450
+Stage 2 Random Front-End: 64 Client(s) Total Requests (without replies) : 10328
+Stage 2 Single Front-End: 1 Client(s) % Failed : 0.0
+Stage 2 Single Front-End: 1 Client(s) % Success : 100.0
+Stage 2 Single Front-End: 1 Client(s) % Timeout : 0.0
+Stage 2 Single Front-End: 1 Client(s) Average Response Time (ms) : 51.0
+Stage 2 Single Front-End: 1 Client(s) Goodput (Requests per Second) : 20.0
+Stage 2 Single Front-End: 1 Client(s) Maximum Response Time (ms) : 97.0
+Stage 2 Single Front-End: 1 Client(s) STDEV Response Time (ms) : 28.0
+Stage 2 Single Front-End: 1 Client(s) Successful Responses : 1192
+Stage 2 Single Front-End: 1 Client(s) Timeout Responses : 0
+Stage 2 Single Front-End: 1 Client(s) Total Failed Responses : 0
+Stage 2 Single Front-End: 1 Client(s) Total Requests (including replies) : 1192
+Stage 2 Single Front-End: 1 Client(s) Total Requests (without replies) : 1192
+Stage 2 Single Front-End: 16 Client(s) % Failed : 0.0
+Stage 2 Single Front-End: 16 Client(s) % Success : 100.0
+Stage 2 Single Front-End: 16 Client(s) % Timeout : 0.0
+Stage 2 Single Front-End: 16 Client(s) Average Response Time (ms) : 98.0
+Stage 2 Single Front-End: 16 Client(s) Goodput (Requests per Second) : 124.0
+Stage 2 Single Front-End: 16 Client(s) Maximum Response Time (ms) : 3218.0
+Stage 2 Single Front-End: 16 Client(s) STDEV Response Time (ms) : 111.0
+Stage 2 Single Front-End: 16 Client(s) Successful Responses : 7412
+Stage 2 Single Front-End: 16 Client(s) Timeout Responses : 0
+Stage 2 Single Front-End: 16 Client(s) Total Failed Responses : 0
+Stage 2 Single Front-End: 16 Client(s) Total Requests (including replies) : 7446
+Stage 2 Single Front-End: 16 Client(s) Total Requests (without replies) : 7412
+Stage 2 Single Front-End: 32 Client(s) % Failed : 0.0
+Stage 2 Single Front-End: 32 Client(s) % Success : 100.0
+Stage 2 Single Front-End: 32 Client(s) % Timeout : 0.0
+Stage 2 Single Front-End: 32 Client(s) Average Response Time (ms) : 169.0
+Stage 2 Single Front-End: 32 Client(s) Goodput (Requests per Second) : 174.0
+Stage 2 Single Front-End: 32 Client(s) Maximum Response Time (ms) : 824.0
+Stage 2 Single Front-End: 32 Client(s) STDEV Response Time (ms) : 77.0
+Stage 2 Single Front-End: 32 Client(s) Successful Responses : 10458
+Stage 2 Single Front-End: 32 Client(s) Timeout Responses : 0
+Stage 2 Single Front-End: 32 Client(s) Total Failed Responses : 0
+Stage 2 Single Front-End: 32 Client(s) Total Requests (including replies) : 10460
+Stage 2 Single Front-End: 32 Client(s) Total Requests (without replies) : 10458
+Test Crash; Key Recovery : PASSED
+Test Random Front-End Basic : PASSED
+Test Single Front-End Basic : PASSED
+Test Single Server At-Most-Once Client Policy : PASSED
+Result Verification Code : 626973D15EA2ABBCFE3A3DCD53E78173
+Results server is up. Secret is valid.
+Results successfully submitted.
+Completed A6 Tests.
+Testing completed in 1183.768s
