@@ -17,6 +17,10 @@ The java code can also be run instead. The main function is in *src/com/s3326311
 
 This code works with Java 8.
 
+# Test client
+
+We are running the test client on an Amazon T2.micro instance
+
 # Testing
 
 Most of the testing was done by the a2_tests.jar provided by the instructors. I also ran my own tests to test several corner cases and to flood the service with requests to see how it would perform under that load but didn't commit that code because it was extremely ugly.
