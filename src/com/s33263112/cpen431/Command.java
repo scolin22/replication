@@ -11,4 +11,7 @@ public class Command {
     public static byte INTERNAL_GET = 0x22;
     public static byte INTERNAL_REMOVE = 0x23;
     public static byte INTERNAL_BROADCAST = 0x24;
+    public static byte REPLICATE_PUT = 0x25;
+    public static byte REPLICATE_GET = 0x26;
+    public static byte REPLICATE_PLACEHOLDER = 0x27;
 }

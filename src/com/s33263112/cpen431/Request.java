@@ -28,7 +28,14 @@ public class Request {
     private byte errorCode = ErrorCode.SUCCESS;
     
     private Request() {}
-    
+
+    public Request(byte command) {
+        this.requestId = new byte[16];
+        this.command = command;
+        this.key = new byte[32];
+        this.valueLength = 0;
+    }
+
     public Request(DatagramPacket packet) {
         byte[] data = packet.getData();
         int dataLength = packet.getLength();
@@ -55,9 +62,9 @@ public class Request {
         if (command == Command.INTERNAL_BROADCAST) {
             return;
         }
-        
+
         if (command == Command.GET || command == Command.PUT || command == Command.REMOVE || command == Command.INTERNAL_GET
-                || command == Command.INTERNAL_PUT || command == Command.INTERNAL_REMOVE) {
+                || command == Command.INTERNAL_PUT || command == Command.INTERNAL_REMOVE || command == Command.REPLICATE_PUT) {
             if (dataLength >= 32) {
                 key = new byte[32];
                 byteBuffer.get(key, 0, 32);
@@ -68,7 +75,7 @@ public class Request {
             }
         }
 
-        if (command == Command.PUT || command == Command.INTERNAL_PUT) {
+        if (command == Command.PUT || command == Command.INTERNAL_PUT || command == Command.REPLICATE_PUT) {
             if (dataLength >= 2) {
                 valueLength = byteBuffer.getShort();
                 dataLength -= 2;
@@ -89,7 +96,7 @@ public class Request {
             }
         }
         
-        if (command == Command.INTERNAL_PUT || command == Command.INTERNAL_GET || command == Command.INTERNAL_REMOVE) {
+        if (command == Command.INTERNAL_PUT || command == Command.INTERNAL_GET || command == Command.INTERNAL_REMOVE || command == Command.REPLICATE_PUT || command == Command.REPLICATE_GET || command == Command.REPLICATE_PLACEHOLDER) {
             if (dataLength >= 6) {
                 byte[] buf = new byte[4];
                 byteBuffer.get(buf, 0, 4);
@@ -117,7 +124,7 @@ public class Request {
                     .put(replyAddress.getAddress())
                     .putInt(replyPort)
                     .array();
-        } else if (command == Command.INTERNAL_PUT) {
+        } else if (command == Command.INTERNAL_PUT || command == Command.REPLICATE_PUT) {
             return ByteBuffer.allocate(59 + valueLength).order(ByteOrder.LITTLE_ENDIAN)
                     .put(requestId)
                     .put(command)
@@ -131,6 +138,13 @@ public class Request {
             return ByteBuffer.allocate(17).order(ByteOrder.LITTLE_ENDIAN)
                     .put(requestId)
                     .put(command)
+                    .array();
+        } else if (command == Command.REPLICATE_GET || command == Command.REPLICATE_PLACEHOLDER) {
+            return ByteBuffer.allocate(25).order(ByteOrder.LITTLE_ENDIAN)
+                    .put(requestId)
+                    .put(command)
+                    .put(replyAddress.getAddress())
+                    .putInt(replyPort)
                     .array();
         } else {
             return null;
@@ -179,6 +193,22 @@ public class Request {
     
     public void setReplyPort(int port) {
         replyPort = port;
+    }
+
+    public void setRequestId(byte[] requestId) {
+        this.requestId = requestId;
+    }
+
+    public void setKey(byte[] key) {
+        this.key = key;
+    }
+
+    public void setValueLength(short valueLength) {
+        this.valueLength = valueLength;
+    }
+
+    public void setValue(byte[] value) {
+        this.value = value;
     }
 
     @Override

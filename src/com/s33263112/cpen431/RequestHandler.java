@@ -9,6 +9,7 @@ package com.s33263112.cpen431;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class RequestHandler implements Runnable {
@@ -22,8 +23,18 @@ public class RequestHandler implements Runnable {
 
     private DatagramPacket packet;
 
+    public static Map<ByteKey, byte[]> getStore() {
+        return store;
+    }
+
     public RequestHandler(DatagramPacket packet) {
         this.packet = packet;
+    }
+
+    private static byte[] randomByteArray(int n) {
+        byte[] b = new byte[n];
+        new Random().nextBytes(b);
+        return b;
     }
     
     @Override
@@ -45,6 +56,9 @@ public class RequestHandler implements Runnable {
                     reply = handleGet(request);
                 } else if (request.getCommand() == Command.PUT) {
                     reply = handlePut(request);
+                    if (reply.getErrorCode() == ErrorCode.SUCCESS) {
+                        replicateRequest(request);
+                    }
                 } else if (request.getCommand() == Command.REMOVE) {
                     reply = handleRemove(request);
                 }
@@ -67,9 +81,18 @@ public class RequestHandler implements Runnable {
         } else if (request.getCommand() == Command.INTERNAL_PUT) {
             reply = handlePut(request);
             sendReply(reply, request.getReplyAddress(), request.getReplyPort());
+            if (reply.getErrorCode() == ErrorCode.SUCCESS) {
+                replicateRequest(request);
+            }
         } else if (request.getCommand() == Command.INTERNAL_REMOVE) {
             reply = handleRemove(request);
             sendReply(reply, request.getReplyAddress(), request.getReplyPort());
+        } else if (request.getCommand() == Command.REPLICATE_PUT) {
+            handleReplicatePut(request);
+        } else if (request.getCommand() == Command.REPLICATE_GET) {
+            handleReplicateGet(request);
+        } else if (request.getCommand() == Command.REPLICATE_PLACEHOLDER) {
+            handleReplicatePlaceholder(request);
         } else if (request.getCommand() == Command.SHUTDOWN) {
             handleShutdown(request);
         } else if (request.getCommand() == Command.DELETE_ALL) {
@@ -133,6 +156,33 @@ public class RequestHandler implements Runnable {
             return new Reply(request, ErrorCode.OUT_OF_SPACE);
         }
     }
+
+    public void handleReplicatePut(Request request) {
+        ByteKey key = new ByteKey(request.getKey());
+        Integer backupID = Router.hash(request.getReplyAddress().getAddress(), request.getReplyPort());
+        Backup.put(backupID, key, request.getValue());
+    }
+
+    private void replicateRequest(Request r) {
+        Request replicateRequest = new Request(Command.REPLICATE_PUT);
+        replicateRequest.setRequestId(randomByteArray(16));
+        replicateRequest.setKey(r.getKey());
+        replicateRequest.setValue(r.getValue());
+        replicateRequest.setValueLength(r.getValueLength());
+        replicateRequest.setReplyAddress(Router.getMyIp());
+        replicateRequest.setReplyPort(Router.getMyPort());
+        for (Node replicateNode : Router.getReplicateServers(Router.getMyNode())) {
+            forwardRequest(replicateRequest, replicateNode);
+        }
+    }
+
+    private void handleReplicateGet(Request request) {
+        Backup.replicate(store, Router.findNodeForKey(Router.hash(request.getReplyAddress().getAddress(), request.getReplyPort())));
+    }
+
+    private void handleReplicatePlaceholder(Request request) {
+        Backup.placeHolder(Router.hash(request.getReplyAddress().getAddress(), request.getReplyPort()));
+    }
     
     private Reply handleRemove(Request request) {
         ByteKey key = new ByteKey(request.getKey());
@@ -184,5 +234,9 @@ public class RequestHandler implements Runnable {
     private void forwardRequest(Request request, Node node) {
         //System.out.println("Forwarding to " + node.getAddress().toString() + ":" + node.getPort() + ": " + request.toString());
         Server.networkHandler.sendBytes(request.toByteArray(), node.getAddress(), node.getPort());
+    }
+
+    public static void printStoreSize() {
+        System.out.println("Holding: " + store.size() + " keys");
     }
 }

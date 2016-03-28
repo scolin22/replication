@@ -16,12 +16,14 @@ public class Server implements Runnable {
     
     private static final int NUM_CORE_THREADS = 4;
     private static final int NUM_MAX_THREADS = 8;
-    private static final int NUM_MAX_QUEUE = 16;
+    private static final int NUM_MAX_QUEUE = 128;
     
     private static volatile boolean running = true;
     public static NetworkHandler networkHandler;
     public static Cacher cacher;
+    public static Backup backup;
     private static Broadcaster broadcaster;
+    public static ThreadPoolExecutor pool;
     public static int port;
 
     public Server(int port) {
@@ -29,8 +31,10 @@ public class Server implements Runnable {
         networkHandler = new NetworkHandler(port);
         cacher = new Cacher(5000);
         broadcaster = new Broadcaster();
-    }
-    
+        backup = new Backup();
+        pool = new ThreadPoolExecutor(NUM_CORE_THREADS, NUM_MAX_THREADS, 1, TimeUnit.MINUTES, new ArrayBlockingQueue<>(NUM_MAX_QUEUE));
+}
+
     public static void close() {
         running = false;
         cacher.close();
@@ -40,7 +44,6 @@ public class Server implements Runnable {
 
     @Override
     public void run() {
-        ThreadPoolExecutor pool = new ThreadPoolExecutor(NUM_CORE_THREADS, NUM_MAX_THREADS, 1, TimeUnit.MINUTES, new ArrayBlockingQueue<>(NUM_MAX_QUEUE));
         while (running) {
             DatagramPacket receivePacket;
             try {
