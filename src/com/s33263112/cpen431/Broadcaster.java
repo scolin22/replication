@@ -1,11 +1,5 @@
 package com.s33263112.cpen431;
 
-import com.google.common.collect.Iterators;
-import com.google.common.collect.PeekingIterator;
-
-import java.util.List;
-import java.util.Set;
-
 public class Broadcaster implements Runnable {
 
     private volatile boolean running = true;

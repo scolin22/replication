@@ -1,9 +1,7 @@
 package com.s33263112.cpen431;
 
-import com.google.common.collect.Iterators;
-import com.google.common.collect.PeekingIterator;
-
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -24,10 +22,10 @@ public class Backup {
 
     public static synchronized void checkNodePrime() {
         boolean looped = false;
-        for (PeekingIterator<Node> iter = Iterators.peekingIterator(Router.getAllNodes().iterator()); iter.hasNext() && !looped;) {
+        for (ListIterator<Node> iter = Router.getAllNodes().listIterator(); iter.hasNext() && !looped;) {
             Node node = iter.next();
             if (!iter.hasNext()) {
-                iter = Iterators.peekingIterator(Router.getAllNodes().iterator());
+                iter = Router.getAllNodes().listIterator();
                 looped = true; // Only cycle through the list once
             }
             if (Router.isMe(node)) {
@@ -37,7 +35,7 @@ public class Backup {
                 // Remove this dead node from the all nodes list
                 Integer backupID = Router.hash(node.getAddress().getAddress(), node.getPort());
                 System.out.println("Node: " + backupID + " died.");
-                if (Router.isMe(iter.peek())) {
+                if (Router.isMe(iter.next())) {
                     System.out.println("It was a client node.");
                     Backup.merge(backupID, RequestHandler.getStore());
                     Backup.replicate(RequestHandler.getStore(), Router.getReplicateServers(Router.getMyNode()));
