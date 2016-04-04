@@ -13,7 +13,7 @@ if not port:
     print "GIMME PORT"
     exit()
 username = "ubc_cpen431_1"
-file_name = "A5.jar"
+file_name = "A7.jar"
 remote_directory = "~/" + name + "/"
 remote_file_name = remote_directory + file_name
 

@@ -6,8 +6,10 @@
 
 package com.s33263112.cpen431;
 
+import java.lang.management.ManagementFactory;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
+import java.nio.ByteBuffer;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
@@ -98,6 +100,8 @@ public class RequestHandler implements Runnable {
         } else if (request.getCommand() == Command.DELETE_ALL) {
             reply = handleDeleteAll(request);
             sendReply(reply);
+        } else if (request.getCommand() == Command.GET_PID) {
+            sendReply(handleGetPid(request));
         } else if (request.getCommand() == Command.INTERNAL_BROADCAST) {
             Router.update(packet.getAddress(), packet.getPort());
         } else {
@@ -204,6 +208,11 @@ public class RequestHandler implements Runnable {
         store.clear();
         System.gc();
         return new Reply(request, ErrorCode.SUCCESS);
+    }
+    
+    private Reply handleGetPid(Request request) {
+        int pid = Integer.parseInt(ManagementFactory.getRuntimeMXBean().getName().split("@")[0]);
+        return new Reply(request, ErrorCode.SUCCESS, ByteBuffer.allocate(4).putInt(pid).array());
     }
     
     private boolean returnIfCached(Request request) {
