@@ -6,7 +6,7 @@ import java.net.*;
 public class NetworkHandler {
 
     private DatagramSocket socket;
-    
+
     public NetworkHandler(int port) {
         socket = createUdpSocket(port);
         try {

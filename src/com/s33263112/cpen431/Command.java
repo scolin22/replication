@@ -15,4 +15,5 @@ public class Command {
     public static byte REPLICATE_PUT = 0x25;
     public static byte REPLICATE_GET = 0x26;
     public static byte REPLICATE_PLACEHOLDER = 0x27;
+    public static byte REPLICATE_REMOVE = 0x29;
 }
