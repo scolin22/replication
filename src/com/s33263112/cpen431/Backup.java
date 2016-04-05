@@ -38,8 +38,6 @@ public class Backup {
                     Backup.replicate(RequestHandler.getStore(), Router.getReplicateServers(Router.getMyNode()));
                     Router.destroy(node.getAddress(), node.getPort());
                 } else if (System.currentTimeMillis() - node.getLastUpdateTime() > 60000) {
-                    node.kill();
-                } else if (System.currentTimeMillis() - node.getLastUpdateTime() > 120000) {
                     Router.destroy(node.getAddress(), node.getPort()); // Don't remove the node unless it's really dead. We still might need to save it.
                 }
             }
