@@ -34,9 +34,9 @@ public class Backup {
             if (System.currentTimeMillis() - node.getLastUpdateTime() > 30000) {
                 // Remove this dead node from the all nodes list
                 Integer backupID = Router.hash(node.getAddress().getAddress(), node.getPort());
-                System.out.println("Node: " + backupID + " died.");
+                //System.out.println("Node: " + backupID + " died.");
                 if (Router.isMe(iter.next())) {
-                    System.out.println("It was a client node.");
+                    //System.out.println("It was a client node.");
                     Backup.merge(backupID, RequestHandler.getStore());
                     Backup.replicate(RequestHandler.getStore(), Router.getReplicateServers(Router.getMyNode()));
                     Router.destroy(node.getAddress(), node.getPort());
@@ -109,32 +109,36 @@ public class Backup {
 
     public static synchronized void replicate(Map<ByteKey, byte[]> src, Node replicate) {
         if (replicate == null) return;
-        System.out.println("Sending replicates to: " + Router.hash(replicate));
+        //System.out.println("Sending replicates to: " + Router.hash(replicate));
         Server.pool.execute(new RequestRunnable(replicate, Command.REPLICATE_PUT, src));
     }
 
     public static synchronized void request(Node node) {
         if (node == null) return;
-        System.out.println("Requesting replicate from: " + Router.hash(node));
+        //System.out.println("Requesting replicate from: " + Router.hash(node));
         Server.pool.execute(new RequestRunnable(node, Command.REPLICATE_GET));
     }
 
     public static synchronized void placeHolder(Integer backupID) {
         if (!backups.containsKey(backupID)) {
-            System.out.println("Creating placeholder for: " + backupID);
+            //System.out.println("Creating placeholder for: " + backupID);
             backups.put(backupID, new ConcurrentHashMap<>());
         }
     }
 
     public static synchronized void delete(Integer backupID) {
-        System.out.println("Deleting: " + backupID);
+        //System.out.println("Deleting: " + backupID);
         backups.remove(backupID);
+    }
+    
+    public static synchronized void clear() {
+        
     }
 
     public static synchronized void merge(Integer backupID, Map<ByteKey, byte[]> dst) {
         Map<ByteKey, byte[]> source;
         if (backups.containsKey(backupID)) {
-            System.out.println("Merging with: " + backupID);
+            //System.out.println("Merging with: " + backupID);
             source = backups.get(backupID);
             dst.putAll(source);
             delete(backupID);
