@@ -3,15 +3,14 @@ package test;
 import com.s33263112.cpen431.ErrorCode;
 import com.s33263112.cpen431.Node;
 import com.s33263112.cpen431.Router;
+import org.junit.Test;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-import org.junit.Test;
-
 public class AliveTests {
 
-    //@Test
+    @Test
     public void testAll() {
         System.out.println("testAll");
         for (Node node : Router.getAllNodes()) {
@@ -39,12 +38,12 @@ public class AliveTests {
             try {
                 ClientReply reply = client.getStoreSize();
                 if (reply.getErrorCode() == ErrorCode.SUCCESS) {
-                    System.out.println(node.getAddress().toString() + "\t" + ByteBuffer.wrap(reply.getValue()).order(ByteOrder.LITTLE_ENDIAN).getInt());
+                    System.out.println(node.getAddress().toString() + "\t" + node.getPort() + "\t" + ByteBuffer.wrap(reply.getValue()).order(ByteOrder.LITTLE_ENDIAN).getInt());
                 } else {
-                    System.out.println(node.getAddress().toString() + " NOT SUCCESS");
+                    System.out.println(node.getAddress().toString() + "\t" + node.getPort() + "\t" + " NOT SUCCESS");
                 }
             } catch (RuntimeException e) {
-                System.out.println(node.getAddress().toString() + " DOWN");
+                System.out.println(node.getAddress().toString() + "\t" + node.getPort() + "\t" + " DOWN");
             }
             client.close();
         }
@@ -58,12 +57,12 @@ public class AliveTests {
             try {
                 ClientReply reply = client.getBackupSize();
                 if (reply.getErrorCode() == ErrorCode.SUCCESS) {
-                    System.out.println(node.getAddress().toString() + "\t" + ByteBuffer.wrap(reply.getValue()).order(ByteOrder.LITTLE_ENDIAN).getInt());
+                    System.out.println(node.getAddress().toString() + "\t" + node.getPort() + "\t" + ByteBuffer.wrap(reply.getValue()).order(ByteOrder.LITTLE_ENDIAN).getInt());
                 } else {
-                    System.out.println(node.getAddress().toString() + " NOT SUCCESS");
+                    System.out.println(node.getAddress().toString() + "\t" + node.getPort() + "\t" + " NOT SUCCESS");
                 }
             } catch (RuntimeException e) {
-                System.out.println(node.getAddress().toString() + " DOWN");
+                System.out.println(node.getAddress().toString() + "\t" + node.getPort() + "\t" + " DOWN");
             }
             client.close();
         }
@@ -77,13 +76,13 @@ public class AliveTests {
             try {
                 ClientReply reply = client.getFreeMemory();
                 if (reply.getErrorCode() == ErrorCode.SUCCESS) {
-                    System.out.println(node.getAddress().toString() + "\t" + ByteBuffer.wrap(reply.getValue()).order(ByteOrder.LITTLE_ENDIAN).getLong());
+                    System.out.println(node.getAddress().toString() + "\t" + node.getPort() + "\t" + ByteBuffer.wrap(reply.getValue()).order(ByteOrder.LITTLE_ENDIAN).getLong());
                 } else {
-                    System.out.println(node.getAddress().toString() + " NOT SUCCESS");
+                    System.out.println(node.getAddress().toString() + "\t" + node.getPort() + "\t" + " NOT SUCCESS");
                 }
             } catch (RuntimeException e) {
                 e.printStackTrace();
-                System.out.println(node.getAddress().toString() + " DOWN");
+                System.out.println(node.getAddress().toString() + "\t" + node.getPort() + "\t" + " DOWN");
             }
             client.close();
         }
