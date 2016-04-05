@@ -13,8 +13,8 @@ import static org.junit.Assert.*;
 public class CorrectnessTests {
     
     private static TestClient client;
-    private static String serverIp = "127.0.0.1";
-    private static int port = 45112;
+    private static String serverIp = "192.168.0.45";
+    private static int port = 45111;
     
     private byte[] randomByteArray(int n) {
         byte[] b = new byte[n];
@@ -231,7 +231,7 @@ public class CorrectnessTests {
 
     @Test
     public void testCheckNodePrime() {
-        int num_keys = 1000;
+        int num_keys = 10000;
         int num_sent = 0;
         int num_persists = 0;
         int num_removed = 0;
@@ -254,35 +254,42 @@ public class CorrectnessTests {
             e.printStackTrace();
         }
 
-        for (ByteKey key : hm.keySet()) {
-            ClientReply reply = client.remove(key.getKey());
-            if (reply != null && reply.getErrorCode() == ErrorCode.SUCCESS) {
-                num_removed++;
-            }
-        }
-        System.out.println("Removal rate: " + (float)num_removed/num_sent);
-
-//        client.shutdown();
-//        client.deleteAll();
-//        client = new TestClient(serverIp, 45114);
-//        client.shutdown();
-
-//        try {
-//            Thread.sleep(75000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
+//        for (ByteKey key : hm.keySet()) {
+//            ClientReply reply = client.remove(key.getKey());
+//            if (reply != null && reply.getErrorCode() == ErrorCode.SUCCESS) {
+//                num_removed++;
+//            }
 //        }
+//        System.out.println("Removal rate: " + (float)num_removed/num_sent);
 
+        client = new TestClient(serverIp, 45111);
+        client.shutdown();
+        client = new TestClient(serverIp, 45112);
+        client.shutdown();
         client = new TestClient(serverIp, 45113);
-//        client.deleteAll();
+        client.shutdown();
+        client = new TestClient(serverIp, 45114);
+        client.shutdown();
+        client = new TestClient(serverIp, 45115);
+        client.shutdown();
+
+        try {
+            Thread.sleep(75000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        client = new TestClient(serverIp, 45116);
         for (ByteKey key : hm.keySet()) {
             ClientReply reply = client.get(key.getKey());
-            if (reply != null && reply.getErrorCode() == ErrorCode.NON_EXISTANT_KEY) {
+            if (reply != null && reply.getErrorCode() == ErrorCode.SUCCESS && Arrays.equals(hm.get(key).getKey(), reply.getValue())) {
                 num_persists++;
             }
 //            assertEquals(ErrorCode.SUCCESS, reply.getErrorCode());
 //            assertTrue(Arrays.equals(hm.get(key).getKey(), reply.getValue()));
         }
         System.out.println("Success rate: " + (float)num_persists/num_sent);
+        System.out.println("Num Sent rate: " + num_sent);
+        System.out.println("Num Persists rate: " + num_persists);
     }
 }

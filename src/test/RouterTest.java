@@ -5,7 +5,6 @@ import com.s33263112.cpen431.Router;
 import org.junit.Test;
 
 import java.math.BigInteger;
-import java.net.InetAddress;
 import java.util.List;
 
 /**
@@ -34,28 +33,30 @@ public class RouterTest {
     }
 
     @Test
-    public void getReplicates() throws Exception {
+    public void getRing() throws Exception {
         List<Node> nodes = Router.getAllNodes();
         for (Node node : nodes) {
-            System.out.println(node.getAddress().getHostAddress() + ":" + node.getPort());
-        }
-
-        InetAddress ip = InetAddress.getByName("192.168.1.2");
-        Integer port = 45111;
-
-        System.out.println("REPLICATES OF " + ip.getHostAddress() + ":" + port);
-        List<Node> replicates = Router.getReplicateServers(Router.getNodeFromHashID(Router.hash(ip.getAddress(), port)));
-        for (Node replicate : replicates) {
-            System.out.println(replicate.getAddress().getHostAddress() + ":" + replicate.getPort());
+            System.out.println(node.getAddress().getHostAddress() + ":" + node.getPort() + " " + Router.hash(node.getAddress().getAddress(), node.getPort()));
         }
     }
 
     @Test
-    public void getReplicateIDs() throws Exception {
+    public void getReplicateServerIDs() throws Exception {
         List<Node> nodes = Router.getAllNodes();
         for (Node node : nodes) {
             System.out.println(node.getAddress().getHostAddress() + ":" + node.getPort() + " ID:" + Router.hash(node));
             for (BigInteger replicateID : Router.getReplicateServerIDs(node)) {
+                System.out.println("-- " + replicateID);
+            }
+        }
+    }
+
+    @Test
+    public void getReplicateClientIDs() throws Exception {
+        List<Node> nodes = Router.getAllNodes();
+        for (Node node : nodes) {
+            System.out.println(node.getAddress().getHostAddress() + ":" + node.getPort() + " ID:" + Router.hash(node));
+            for (BigInteger replicateID : Router.getReplicateClientIDs(node)) {
                 System.out.println("-- " + replicateID);
             }
         }
