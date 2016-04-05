@@ -1,19 +1,14 @@
 package test;
 
-import static org.junit.Assert.*;
+import com.s33263112.cpen431.ByteKey;
+import com.s33263112.cpen431.ErrorCode;
+import org.junit.*;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
-import com.s33263112.cpen431.ByteKey;
-import com.s33263112.cpen431.ErrorCode;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class CorrectnessTests {
     
@@ -236,9 +231,11 @@ public class CorrectnessTests {
 
     @Test
     public void testCheckNodePrime() {
-        int num_keys = 10000;
+        int num_keys = 1000;
         int num_sent = 0;
         int num_persists = 0;
+        int num_removed = 0;
+
         HashMap<ByteKey, ByteKey> hm = new HashMap<>();
         for (int i = 0; i < num_keys; i++) {
             byte[] key = randomByteArray(32);
@@ -257,8 +254,16 @@ public class CorrectnessTests {
             e.printStackTrace();
         }
 
-        //client.shutdown();
-        client.deleteAll();
+        for (ByteKey key : hm.keySet()) {
+            ClientReply reply = client.remove(key.getKey());
+            if (reply != null && reply.getErrorCode() == ErrorCode.SUCCESS) {
+                num_removed++;
+            }
+        }
+        System.out.println("Removal rate: " + (float)num_removed/num_sent);
+
+//        client.shutdown();
+//        client.deleteAll();
 //        client = new TestClient(serverIp, 45114);
 //        client.shutdown();
 
@@ -269,7 +274,7 @@ public class CorrectnessTests {
 //        }
 
         client = new TestClient(serverIp, 45113);
-        client.deleteAll();
+//        client.deleteAll();
         for (ByteKey key : hm.keySet()) {
             ClientReply reply = client.get(key.getKey());
             if (reply != null && reply.getErrorCode() == ErrorCode.NON_EXISTANT_KEY) {

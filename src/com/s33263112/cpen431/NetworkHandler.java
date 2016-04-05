@@ -9,6 +9,12 @@ public class NetworkHandler {
 
     public NetworkHandler(int port) {
         socket = createUdpSocket(port);
+        try {
+            System.out.println("Server running on: " + InetAddress.getLocalHost() + ":" + socket.getLocalPort() + " Key: " + Router.hash(Router.getMyNode()));
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void close() {
