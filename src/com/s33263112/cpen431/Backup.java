@@ -135,6 +135,11 @@ public class Backup {
         
     }
 
+    public static synchronized void remove(ByteKey key, Integer backupID) {
+        System.out.println("Deleting: " + backupID);
+        backups.get(backupID).remove(key);
+    }
+
     public static synchronized void merge(Integer backupID, Map<ByteKey, byte[]> dst) {
         Map<ByteKey, byte[]> source;
         if (backups.containsKey(backupID)) {

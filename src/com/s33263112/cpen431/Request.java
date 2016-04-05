@@ -64,7 +64,7 @@ public class Request {
         }
 
         if (command == Command.GET || command == Command.PUT || command == Command.REMOVE || command == Command.INTERNAL_GET
-                || command == Command.INTERNAL_PUT || command == Command.INTERNAL_REMOVE || command == Command.REPLICATE_PUT) {
+                || command == Command.INTERNAL_PUT || command == Command.INTERNAL_REMOVE || command == Command.REPLICATE_PUT || command == Command.REPLICATE_REMOVE) {
             if (dataLength >= 32) {
                 key = new byte[32];
                 byteBuffer.get(key, 0, 32);
@@ -116,7 +116,7 @@ public class Request {
     }
     
     public byte[] toByteArray() {
-        if (command == Command.INTERNAL_GET || command == Command.INTERNAL_REMOVE) {
+        if (command == Command.INTERNAL_GET || command == Command.INTERNAL_REMOVE || command == Command.REPLICATE_REMOVE) {
             return ByteBuffer.allocate(57).order(ByteOrder.LITTLE_ENDIAN)
                     .put(requestId)
                     .put(command)

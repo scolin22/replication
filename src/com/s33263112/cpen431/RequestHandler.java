@@ -59,10 +59,13 @@ public class RequestHandler implements Runnable {
                 } else if (request.getCommand() == Command.PUT) {
                     reply = handlePut(request);
                     if (reply.getErrorCode() == ErrorCode.SUCCESS) {
-                        replicateRequest(request);
+                        replicatePutRequest(request);
                     }
                 } else if (request.getCommand() == Command.REMOVE) {
                     reply = handleRemove(request);
+                    if (reply.getErrorCode() == ErrorCode.SUCCESS) {
+                        replicateRemoveRequest(request);
+                    }
                 }
                 sendReply(reply);
             } else {
@@ -84,15 +87,20 @@ public class RequestHandler implements Runnable {
             reply = handlePut(request);
             sendReply(reply, request.getReplyAddress(), request.getReplyPort());
             if (reply.getErrorCode() == ErrorCode.SUCCESS) {
-                replicateRequest(request);
+                replicatePutRequest(request);
             }
         } else if (request.getCommand() == Command.INTERNAL_REMOVE) {
             reply = handleRemove(request);
             sendReply(reply, request.getReplyAddress(), request.getReplyPort());
+            if (reply.getErrorCode() == ErrorCode.SUCCESS) {
+                replicateRemoveRequest(request);
+            }
         } else if (request.getCommand() == Command.REPLICATE_PUT) {
             handleReplicatePut(request);
         } else if (request.getCommand() == Command.REPLICATE_GET) {
             handleReplicateGet(request);
+        } else if (request.getCommand() == Command.REPLICATE_REMOVE) {
+            handleReplicateRemove(request);
         } else if (request.getCommand() == Command.REPLICATE_PLACEHOLDER) {
             handleReplicatePlaceholder(request);
         } else if (request.getCommand() == Command.SHUTDOWN) {
@@ -167,7 +175,7 @@ public class RequestHandler implements Runnable {
         Backup.put(backupID, key, request.getValue());
     }
 
-    private void replicateRequest(Request r) {
+    private void replicatePutRequest(Request r) {
         Request replicateRequest = new Request(Command.REPLICATE_PUT);
         replicateRequest.setRequestId(randomByteArray(16));
         replicateRequest.setKey(r.getKey());
@@ -180,8 +188,23 @@ public class RequestHandler implements Runnable {
         }
     }
 
+    private void replicateRemoveRequest(Request r) {
+        Request replicateRequest = new Request(Command.REPLICATE_REMOVE);
+        replicateRequest.setRequestId(randomByteArray(16));
+        replicateRequest.setKey(r.getKey());
+        replicateRequest.setReplyAddress(Router.getMyIp());
+        replicateRequest.setReplyPort(Router.getMyPort());
+        for (Node replicateNode : Router.getReplicateServers(Router.getMyNode())) {
+            forwardRequest(replicateRequest, replicateNode);
+        }
+    }
+
     private void handleReplicateGet(Request request) {
         Backup.replicate(store, Router.findNodeForKey(Router.hash(request.getReplyAddress().getAddress(), request.getReplyPort())));
+    }
+
+    private void handleReplicateRemove(Request request) {
+        Backup.remove(new ByteKey(request.getKey()), Router.hash(request.getReplyAddress().getAddress(), request.getReplyPort()));
     }
 
     private void handleReplicatePlaceholder(Request request) {
