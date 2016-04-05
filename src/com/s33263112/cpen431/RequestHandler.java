@@ -92,6 +92,9 @@ public class RequestHandler implements Runnable {
         } else if (request.getCommand() == Command.INTERNAL_REMOVE) {
             reply = handleRemove(request);
             sendReply(reply, request.getReplyAddress(), request.getReplyPort());
+            if (reply.getErrorCode() == ErrorCode.SUCCESS) {
+                replicateRemoveRequest(request);
+            }
         } else if (request.getCommand() == Command.REPLICATE_PUT) {
             handleReplicatePut(request);
         } else if (request.getCommand() == Command.REPLICATE_GET) {
