@@ -27,12 +27,12 @@ public class Server implements Runnable {
     public static int port;
 
     public Server(int port) {
+        pool = new ThreadPoolExecutor(NUM_CORE_THREADS, NUM_MAX_THREADS, 1, TimeUnit.MINUTES, new ArrayBlockingQueue<>(NUM_MAX_QUEUE));
         Server.port = port;
         networkHandler = new NetworkHandler(port);
         cacher = new Cacher(5000);
         broadcaster = new Broadcaster();
         backup = new Backup();
-        pool = new ThreadPoolExecutor(NUM_CORE_THREADS, NUM_MAX_THREADS, 1, TimeUnit.MINUTES, new ArrayBlockingQueue<>(NUM_MAX_QUEUE));
 }
 
     public static void close() {
