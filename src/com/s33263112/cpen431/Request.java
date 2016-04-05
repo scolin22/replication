@@ -96,7 +96,7 @@ public class Request {
             }
         }
         
-        if (command == Command.INTERNAL_PUT || command == Command.INTERNAL_GET || command == Command.INTERNAL_REMOVE || command == Command.REPLICATE_PUT || command == Command.REPLICATE_GET || command == Command.REPLICATE_PLACEHOLDER) {
+        if (command == Command.INTERNAL_PUT || command == Command.INTERNAL_GET || command == Command.INTERNAL_REMOVE || command == Command.REPLICATE_PUT || command == Command.REPLICATE_GET || command == Command.REPLICATE_PLACEHOLDER || command == Command.REPLICATE_CLEAR || command == Command.REPLICATE_REMOVE) {
             if (dataLength >= 6) {
                 byte[] buf = new byte[4];
                 byteBuffer.get(buf, 0, 4);
@@ -139,7 +139,7 @@ public class Request {
                     .put(requestId)
                     .put(command)
                     .array();
-        } else if (command == Command.REPLICATE_GET || command == Command.REPLICATE_PLACEHOLDER) {
+        } else if (command == Command.REPLICATE_GET || command == Command.REPLICATE_PLACEHOLDER || command == Command.REPLICATE_CLEAR) {
             return ByteBuffer.allocate(25).order(ByteOrder.LITTLE_ENDIAN)
                     .put(requestId)
                     .put(command)

@@ -148,6 +148,10 @@ public class Backup {
         }
     }
 
+    public static synchronized void clear(Integer backupID) {
+        backups.get(backupID).clear();
+    }
+
     public static synchronized Set<Integer> getBackupList() {
         return backups.keySet();
     }

@@ -101,6 +101,8 @@ public class RequestHandler implements Runnable {
             handleReplicateGet(request);
         } else if (request.getCommand() == Command.REPLICATE_REMOVE) {
             handleReplicateRemove(request);
+        } else if (request.getCommand() == Command.REPLICATE_CLEAR) {
+            handleReplicateClear(request);
         } else if (request.getCommand() == Command.REPLICATE_PLACEHOLDER) {
             handleReplicatePlaceholder(request);
         } else if (request.getCommand() == Command.SHUTDOWN) {
@@ -108,6 +110,9 @@ public class RequestHandler implements Runnable {
         } else if (request.getCommand() == Command.DELETE_ALL) {
             reply = handleDeleteAll(request);
             sendReply(reply);
+            if (reply.getErrorCode() == ErrorCode.SUCCESS) {
+                replicateClearRequest(request);
+            }
         } else if (request.getCommand() == Command.GET_PID) {
             sendReply(handleGetPid(request));
         } else if (request.getCommand() == Command.INTERNAL_BROADCAST) {
@@ -232,7 +237,21 @@ public class RequestHandler implements Runnable {
         System.gc();
         return new Reply(request, ErrorCode.SUCCESS);
     }
-    
+
+    private void replicateClearRequest(Request r) {
+        Request replicateRequest = new Request(Command.REPLICATE_CLEAR);
+        replicateRequest.setRequestId(randomByteArray(16));
+        replicateRequest.setReplyAddress(Router.getMyIp());
+        replicateRequest.setReplyPort(Router.getMyPort());
+        for (Node replicateNode : Router.getReplicateServers(Router.getMyNode())) {
+            forwardRequest(replicateRequest, replicateNode);
+        }
+    }
+
+    private void handleReplicateClear(Request request) {
+        Backup.clear(Router.hash(request.getReplyAddress().getAddress(), request.getReplyPort()));
+    }
+
     private Reply handleGetPid(Request request) {
         int pid = Integer.parseInt(ManagementFactory.getRuntimeMXBean().getName().split("@")[0]);
         return new Reply(request, ErrorCode.SUCCESS, ByteBuffer.allocate(4).putInt(pid).array());
