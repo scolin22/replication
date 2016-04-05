@@ -153,4 +153,12 @@ public class Backup {
     public static synchronized Set<BigInteger> getBackupList() {
         return backups.keySet();
     }
+    
+    public static synchronized int getTotalSize() {
+        int size = 0;
+        for (BigInteger backupID : backups.keySet()) {
+            size += backups.get(backupID).size();
+        }
+        return size;
+    }
 }

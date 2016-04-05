@@ -33,7 +33,8 @@ public class Broadcaster implements Runnable {
             try {
                 Thread.sleep(15000);
             } catch (InterruptedException e) {
-                Server.close();
+                Server.close1();
+                Server.close2();
                 throw new RuntimeException(e);
             }
         }
