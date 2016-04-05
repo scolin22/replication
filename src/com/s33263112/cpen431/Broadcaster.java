@@ -1,6 +1,8 @@
 package com.s33263112.cpen431;
 
 public class Broadcaster implements Runnable {
+    
+    public static final int INTERVAL = 5000;
 
     private volatile boolean running = true;
 
@@ -31,7 +33,7 @@ public class Broadcaster implements Runnable {
             RequestHandler.printStoreSize();
 
             try {
-                Thread.sleep(15000);
+                Thread.sleep(INTERVAL);
             } catch (InterruptedException e) {
                 Server.close1();
                 Server.close2();

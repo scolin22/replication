@@ -85,13 +85,13 @@ public class Router {
         for (Entry<BigInteger, Node> entry : nodes.entrySet()) {
             Node node = entry.getValue();
             if (firstActiveNode == null) {
-                if (System.currentTimeMillis() - node.getLastUpdateTime() <= 60000) {
+                if (System.currentTimeMillis() - node.getLastUpdateTime() <= Broadcaster.INTERVAL * 3) {
                     firstActiveNode = node;
                 }
             }
 
             if (previousKey != null && previousKey.compareTo(hashedKey) < 0 && entry.getKey().compareTo(hashedKey) >= 0) {
-                if (System.currentTimeMillis() - node.getLastUpdateTime() <= 60000) {
+                if (System.currentTimeMillis() - node.getLastUpdateTime() <= Broadcaster.INTERVAL * 3) {
                     return node;
                 } else {
                     // This node hasn't broadcasted in over 60s, so check next one
@@ -129,10 +129,8 @@ public class Router {
                         it = nodeList.listIterator();
                     }
                     Node n = it.next().getValue();
-                    if (n.isAlive()) {
-                        replicates.add(n);
-                        i++;
-                    }
+                    replicates.add(n);
+                    i++;
                 }
                 break;
             }
@@ -159,10 +157,8 @@ public class Router {
                         it = nodeList.listIterator();
                     }
                     Node n = it.next().getValue();
-                    if (n.isAlive()) {
-                        replicates.add(n);
-                        i++;
-                    }
+                    replicates.add(n);
+                    i++;
                 }
                 break;
             }
@@ -211,7 +207,7 @@ public class Router {
         //System.out.println("Active nodes:");
         for (Entry<BigInteger, Node> entry : nodes.entrySet()) {
             Node node = entry.getValue();
-            if (System.currentTimeMillis() - node.getLastUpdateTime() <= 60000) {
+            if (System.currentTimeMillis() - node.getLastUpdateTime() <= Broadcaster.INTERVAL * 3) {
                 //System.out.println(node.getAddress().toString() + ":" + node.getPort() + " " + entry.getKey());
                 activeNodes.add(node);
             }

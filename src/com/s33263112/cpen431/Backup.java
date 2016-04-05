@@ -19,29 +19,33 @@ public class Backup {
 
     public static synchronized void checkNodePrime() {
         boolean looped = false;
-        for (ListIterator<Node> iter = Router.getAllNodes().listIterator(); iter.hasNext() && !looped;) {
+        ListIterator<Node> iter = Router.getAllNodes().listIterator();
+        while (iter.hasNext() && !looped) {
             Node node = iter.next();
             if (!iter.hasNext()) {
                 iter = Router.getAllNodes().listIterator();
                 looped = true; // Only cycle through the list once
             }
             if (Router.isMe(node)) {
+                System.out.println("Node: " + node + " IS ME");
                 continue;
             }
-            if (System.currentTimeMillis() - node.getLastUpdateTime() > 30000) {
+            if (System.currentTimeMillis() - node.getLastUpdateTime() > Broadcaster.INTERVAL * 3) {
                 // Remove this dead node from the all nodes list
                 BigInteger backupID = Router.hash(node.getAddress().getAddress(), node.getPort());
-                System.out.println("Node: " + backupID + " died.");
-                if (Router.isMe(iter.next())) {
+                System.out.println("Node: " + node + "|" + backupID + " died.");
+                Node me = iter.next();
+                iter.previous();
+                if (Router.isMe(me)) {
                     System.out.println("It was a client node.");
                     Backup.merge(backupID, RequestHandler.getStore());
                     Backup.replicate(RequestHandler.getStore(), Router.getReplicateServers(Router.getMyNode()));
                     Router.destroy(node.getAddress(), node.getPort());
-                } else if (System.currentTimeMillis() - node.getLastUpdateTime() > 60000 && System.currentTimeMillis() - node.getLastUpdateTime() <= 120000) {
-                    node.kill();
-                } else if (System.currentTimeMillis() - node.getLastUpdateTime() > 120000) {
+                } else if (System.currentTimeMillis() - node.getLastUpdateTime() > Broadcaster.INTERVAL * 6) {
                     Router.destroy(node.getAddress(), node.getPort()); // Don't remove the node unless it's really dead. We still might need to save it.
                 }
+            } else {
+                System.out.println("Node: " + node + " not dead");
             }
         }
     }

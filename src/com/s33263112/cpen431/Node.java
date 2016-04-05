@@ -7,7 +7,6 @@ public class Node {
     private InetAddress address = null;
     private int port;
     private long lastUpdateTime = System.currentTimeMillis();
-    private boolean isAlive = true;
     
     public Node(InetAddress address, int port) {
         this.address = address;
@@ -30,11 +29,8 @@ public class Node {
         return port;
     }
     
-    public boolean isAlive() {
-        return isAlive;
-    }
-    
-    public void kill() {
-        isAlive = false;
+    @Override
+    public String toString() {
+        return String.format("%s:%s", address.toString(), port);
     }
 }
