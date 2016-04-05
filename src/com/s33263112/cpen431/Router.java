@@ -123,11 +123,16 @@ public class Router {
         for (ListIterator<Entry<BigInteger, Node>> it = nodeList.listIterator(); it.hasNext();) {
             Node node = it.next().getValue();
             if (hash(node).equals(hash(mainNode))) {
-                for (int i = 0; i < NUM_REPLICATES; i++) {
+                int i = 0;
+                while (i < NUM_REPLICATES) {
                     if (!it.hasNext()) {
                         it = nodeList.listIterator();
                     }
-                    replicates.add(it.next().getValue());
+                    Node n = it.next().getValue();
+                    if (n.isAlive()) {
+                        replicates.add(n);
+                        i++;
+                    }
                 }
                 break;
             }
@@ -148,11 +153,16 @@ public class Router {
         for (ListIterator<Entry<BigInteger, Node>> it = nodeList.listIterator(); it.hasNext();) {
             Node node = it.next().getValue();
             if (hash(node).equals(hash(mainNode))) {
-                for (int i = 0; i < NUM_REPLICATES; i++) {
+                int i = 0;
+                while (i < NUM_REPLICATES) {
                     if (!it.hasNext()) {
                         it = nodeList.listIterator();
                     }
-                    replicates.add(it.next().getValue());
+                    Node n = it.next().getValue();
+                    if (n.isAlive()) {
+                        replicates.add(n);
+                        i++;
+                    }
                 }
                 break;
             }
