@@ -4,6 +4,7 @@ import com.s33263112.cpen431.Node;
 import com.s33263112.cpen431.Router;
 import org.junit.Test;
 
+import java.math.BigInteger;
 import java.net.InetAddress;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class RouterTest {
 
 //        Integer nodeKey = Router.hash(InetAddress.getByName("134.197.113.3").getAddress(), 45111);
 
-        Integer nodeKey = 1;
+        BigInteger nodeKey = BigInteger.ONE;
 
         Node node = Router.findNodeForKey(nodeKey);
 
@@ -54,7 +55,7 @@ public class RouterTest {
         List<Node> nodes = Router.getAllNodes();
         for (Node node : nodes) {
             System.out.println(node.getAddress().getHostAddress() + ":" + node.getPort() + " ID:" + Router.hash(node));
-            for (Integer replicateID : Router.getReplicateServerIDs(node)) {
+            for (BigInteger replicateID : Router.getReplicateServerIDs(node)) {
                 System.out.println("-- " + replicateID);
             }
         }

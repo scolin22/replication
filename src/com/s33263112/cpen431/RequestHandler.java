@@ -7,6 +7,7 @@
 package com.s33263112.cpen431;
 
 import java.lang.management.ManagementFactory;
+import java.math.BigInteger;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
@@ -114,6 +115,7 @@ public class RequestHandler implements Runnable {
             if (reply.getErrorCode() == ErrorCode.SUCCESS) {
                 replicateClearRequest(request);
             }
+            System.gc();
         } else if (request.getCommand() == Command.GET_PID) {
             sendReply(handleGetPid(request));
         } else if (request.getCommand() == Command.INTERNAL_BROADCAST) {
@@ -136,7 +138,7 @@ public class RequestHandler implements Runnable {
      */
     private static synchronized boolean put(ByteKey key, byte[] value) {
         if (Runtime.getRuntime().freeMemory() <= MIN_FREE_MEMORY) {
-            System.out.println("OUT OF MEMORY");
+            System.out.println("OUT OF MEMORY IN REQUESTHANDLER");
             // Stop adding more items if we have less than MIN_FREE_MEMORY of memory left
             return false;
         } else if (store.size() >= MAX_STORE_SIZE) {
@@ -178,7 +180,7 @@ public class RequestHandler implements Runnable {
 
     public void handleReplicatePut(Request request) {
         ByteKey key = new ByteKey(request.getKey());
-        Integer backupID = Router.hash(request.getReplyAddress().getAddress(), request.getReplyPort());
+        BigInteger backupID = Router.hash(request.getReplyAddress().getAddress(), request.getReplyPort());
         Backup.put(backupID, key, request.getValue());
     }
 

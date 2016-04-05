@@ -6,6 +6,7 @@ import com.s33263112.cpen431.Request;
 import com.s33263112.cpen431.Router;
 import org.junit.Test;
 
+import java.math.BigInteger;
 import java.net.DatagramPacket;
 import java.util.Map;
 import java.util.Random;
@@ -37,7 +38,7 @@ public class RequestHandlerTest {
         request.setValue(value);
 
         ByteKey hashkey = new ByteKey(request.getKey());
-        Integer backupID = Router.hash(request.getReplyAddress().getAddress(), request.getReplyPort());
+        BigInteger backupID = Router.hash(request.getReplyAddress().getAddress(), request.getReplyPort());
         Backup.put(backupID, hashkey, request.getValue());
         Map<ByteKey, byte[]> m = new ConcurrentHashMap<>();
         Backup.merge(backupID, m);
