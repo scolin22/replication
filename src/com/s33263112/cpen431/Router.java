@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
@@ -21,7 +22,7 @@ public class Router {
     private static final InetAddress myIp;
     private static final int myPort = Server.port;
 
-    private static final TreeMap<Integer, Node> nodes = new TreeMap<>();
+    private static final TreeMap<BigInteger, Node> nodes = new TreeMap<>();
     static {
         try {
             myIp = InetAddress.getLocalHost();
@@ -41,7 +42,7 @@ public class Router {
                 if (isMe(node)) {
                     myNode = node;
                 }
-                Integer key = hash(node);
+                BigInteger key = hash(node);
                 nodes.put(key, node);
             }
         } catch (IOException e) {
@@ -49,28 +50,28 @@ public class Router {
         }
     }
 
-    public static Integer hash(byte[] b) {
+    public static BigInteger hash(byte[] b) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-1");
             md.update(b);
-            return ByteBuffer.wrap(md.digest()).getInt();
+            return new BigInteger(md.digest());
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static Integer hash(byte[] b, int i) {
+    public static BigInteger hash(byte[] b, int i) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-1");
             md.update(b);
             md.update(ByteBuffer.allocate(4).putInt(i).array());
-            return ByteBuffer.wrap(md.digest()).getInt();
+            return new BigInteger(md.digest());
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static Integer hash(Node node) {
+    public static BigInteger hash(Node node) {
         return hash(node.getAddress().getAddress(), node.getPort());
     }
 
@@ -78,36 +79,36 @@ public class Router {
         return node.getAddress().equals(myIp) && node.getPort() == myPort;
     }
 
-    public static synchronized Node findNodeForKey(int hashedKey) {
-        int previousKey = 0;
+    public static synchronized Node findNodeForKey(BigInteger hashedKey) {
+        BigInteger previousKey = null;
         Node firstActiveNode = null;
-        for (Entry<Integer, Node> entry : nodes.entrySet()) {
+        for (Entry<BigInteger, Node> entry : nodes.entrySet()) {
             Node node = entry.getValue();
             if (firstActiveNode == null) {
                 if (System.currentTimeMillis() - node.getLastUpdateTime() <= 60000) {
                     firstActiveNode = node;
                 }
             }
-            if (previousKey < hashedKey && entry.getKey().intValue() >= hashedKey) {
+
+            if (previousKey != null && previousKey.compareTo(hashedKey) < 0 && entry.getKey().compareTo(hashedKey) >= 0) {
                 if (System.currentTimeMillis() - node.getLastUpdateTime() <= 60000) {
                     return node;
                 } else {
                     // This node hasn't broadcasted in over 60s, so check next one
                     continue;
                 }
-            } else {
-                previousKey = entry.getKey().intValue();
             }
+            previousKey = entry.getKey();
         }
         return firstActiveNode;
     }
 
-    public static synchronized Node getNodeFromHashID(Integer key) {
+    public static synchronized Node getNodeFromHashID(BigInteger key) {
         return nodes.get(key);
     }
 
     public static synchronized Node forward(byte[] key) {
-        int hashedKey = hash(key).intValue();
+        BigInteger hashedKey = hash(key);
         return findNodeForKey(hashedKey);
     }
 
@@ -116,10 +117,10 @@ public class Router {
         List<Node> replicates = new ArrayList<>();
         if (mainNode == null) return replicates;
 
-        ArrayList<Entry<Integer, Node>> nodeList = new ArrayList<>(nodes.entrySet());
+        ArrayList<Entry<BigInteger, Node>> nodeList = new ArrayList<>(nodes.entrySet());
 
         // Get successive nodes
-        for (ListIterator<Entry<Integer, Node>> it = nodeList.listIterator(); it.hasNext();) {
+        for (ListIterator<Entry<BigInteger, Node>> it = nodeList.listIterator(); it.hasNext();) {
             Node node = it.next().getValue();
             if (hash(node).equals(hash(mainNode))) {
                 for (int i = 0; i < NUM_REPLICATES; i++) {
@@ -140,11 +141,11 @@ public class Router {
         List<Node> replicates = new ArrayList<>();
         if (mainNode == null) return replicates;
 
-        ArrayList<Entry<Integer, Node>> nodeList = new ArrayList<>(nodes.entrySet());
+        ArrayList<Entry<BigInteger, Node>> nodeList = new ArrayList<>(nodes.entrySet());
 
         // Get prior nodes
         Collections.reverse(nodeList);
-        for (ListIterator<Entry<Integer, Node>> it = nodeList.listIterator(); it.hasNext();) {
+        for (ListIterator<Entry<BigInteger, Node>> it = nodeList.listIterator(); it.hasNext();) {
             Node node = it.next().getValue();
             if (hash(node).equals(hash(mainNode))) {
                 for (int i = 0; i < NUM_REPLICATES; i++) {
@@ -160,8 +161,8 @@ public class Router {
         return replicates;
     }
 
-    public static synchronized List<Integer> getReplicateServerIDs(Node mainNode) {
-        List<Integer> replicateIDs = new ArrayList<>();
+    public static synchronized List<BigInteger> getReplicateServerIDs(Node mainNode) {
+        List<BigInteger> replicateIDs = new ArrayList<>();
 
         for (Node node : getReplicateServers(mainNode)) {
             replicateIDs.add(Router.hash(node));
@@ -170,8 +171,8 @@ public class Router {
         return replicateIDs;
     }
 
-    public static synchronized List<Integer> getReplicateClientIDs(Node mainNode) {
-        List<Integer> replicateIDs = new ArrayList<>();
+    public static synchronized List<BigInteger> getReplicateClientIDs(Node mainNode) {
+        List<BigInteger> replicateIDs = new ArrayList<>();
 
         for (Node node : getReplicateClients(mainNode)) {
             replicateIDs.add(Router.hash(node));
@@ -181,7 +182,7 @@ public class Router {
     }
 
     public static synchronized void update(InetAddress ip, int port) {
-        Integer key = hash(ip.getAddress(), port);
+        BigInteger key = hash(ip.getAddress(), port);
         Node node = nodes.get(key);
         if (node == null) {
             nodes.put(key, new Node(ip, port));
@@ -191,14 +192,14 @@ public class Router {
     }
 
     public static synchronized void destroy(InetAddress ip, int port) {
-        Integer key = hash(ip.getAddress(), port);
+        BigInteger key = hash(ip.getAddress(), port);
         nodes.remove(key);
     }
 
     public static synchronized List<Node> getActiveNodes() {
         List<Node> activeNodes = new ArrayList<>();
         //System.out.println("Active nodes:");
-        for (Entry<Integer, Node> entry : nodes.entrySet()) {
+        for (Entry<BigInteger, Node> entry : nodes.entrySet()) {
             Node node = entry.getValue();
             if (System.currentTimeMillis() - node.getLastUpdateTime() <= 60000) {
                 //System.out.println(node.getAddress().toString() + ":" + node.getPort() + " " + entry.getKey());
@@ -210,10 +211,14 @@ public class Router {
 
     public static synchronized List<Node> getAllNodes() {
         List<Node> activeNodes = new ArrayList<>();
-        for (Entry<Integer, Node> entry : nodes.entrySet()) {
+        for (Entry<BigInteger, Node> entry : nodes.entrySet()) {
             activeNodes.add(entry.getValue());
         }
         return activeNodes;
+    }
+ 
+    public static TreeMap<BigInteger, Node> getNodes() {
+        return nodes;
     }
 
     public static int getMyPort() {

@@ -7,6 +7,7 @@
 package com.s33263112.cpen431;
 
 import java.lang.management.ManagementFactory;
+import java.math.BigInteger;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
@@ -114,10 +115,18 @@ public class RequestHandler implements Runnable {
             if (reply.getErrorCode() == ErrorCode.SUCCESS) {
                 replicateClearRequest(request);
             }
+            System.gc();
         } else if (request.getCommand() == Command.GET_PID) {
             sendReply(handleGetPid(request));
         } else if (request.getCommand() == Command.INTERNAL_BROADCAST) {
             Router.update(packet.getAddress(), packet.getPort());
+        } else if (request.getCommand() == Command.GET_STORE_SIZE) {
+            sendReply(handleGetStoreSize(request));
+        } else if (request.getCommand() == Command.GET_BACKUP_SIZE) {
+            sendReply(handleGetBackupSize(request));
+        } else if (request.getCommand() == Command.GET_FREE_MEMORY) {
+            Reply r = handleGetFreeMemory(request);
+            sendReply(r);
         } else {
             reply = new Reply(request, ErrorCode.UNRECOGNIZED_COMMAND);
             sendReply(reply);
@@ -136,7 +145,7 @@ public class RequestHandler implements Runnable {
      */
     private static synchronized boolean put(ByteKey key, byte[] value) {
         if (Runtime.getRuntime().freeMemory() <= MIN_FREE_MEMORY) {
-            System.out.println("OUT OF MEMORY");
+            System.out.println("OUT OF MEMORY IN REQUESTHANDLER");
             // Stop adding more items if we have less than MIN_FREE_MEMORY of memory left
             return false;
         } else if (store.size() >= MAX_STORE_SIZE) {
@@ -178,7 +187,7 @@ public class RequestHandler implements Runnable {
 
     public void handleReplicatePut(Request request) {
         ByteKey key = new ByteKey(request.getKey());
-        Integer backupID = Router.hash(request.getReplyAddress().getAddress(), request.getReplyPort());
+        BigInteger backupID = Router.hash(request.getReplyAddress().getAddress(), request.getReplyPort());
         Backup.put(backupID, key, request.getValue());
     }
 
@@ -229,9 +238,10 @@ public class RequestHandler implements Runnable {
     }
 
     private void handleShutdown(Request request) {
+        Server.close1();
         sendReply(new Reply(request, ErrorCode.SUCCESS));
         System.out.println("Shutting down because of shutdown command");
-        Server.close();
+        Server.close2();
     }
     
     private Reply handleDeleteAll(Request request) {
@@ -252,13 +262,26 @@ public class RequestHandler implements Runnable {
 
     private void handleReplicateClear(Request request) {
         Backup.clear(Router.hash(request.getReplyAddress().getAddress(), request.getReplyPort()));
+        System.gc();
     }
 
     private Reply handleGetPid(Request request) {
         int pid = Integer.parseInt(ManagementFactory.getRuntimeMXBean().getName().split("@")[0]);
         return new Reply(request, ErrorCode.SUCCESS, ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(pid).array());
     }
+
+    private Reply handleGetStoreSize(Request request) {
+        return new Reply(request, ErrorCode.SUCCESS, ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(store.size()).array());
+    }
     
+    private Reply handleGetBackupSize(Request request) {
+        return new Reply(request, ErrorCode.SUCCESS, ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(Backup.getTotalSize()).array());
+    }
+    
+    private Reply handleGetFreeMemory(Request request) {
+        return new Reply(request, ErrorCode.SUCCESS, ByteBuffer.allocate(8).order(ByteOrder.LITTLE_ENDIAN).putLong(Runtime.getRuntime().freeMemory()).array());
+    }
+
     private boolean returnIfCached(Request request) {
         Reply reply = Server.cacher.get(request);
         if (reply != null) {

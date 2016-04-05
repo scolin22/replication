@@ -178,6 +178,42 @@ public class TestClient {
             throw new RuntimeException(ioe);
         }
     }
+    
+    public ClientReply getStoreSize() {
+        ClientRequest request = new ClientRequest(Command.GET_STORE_SIZE);
+        sendBytes(request.getRequest());
+        DatagramPacket receivePacket = new DatagramPacket(new byte[23], 23);
+        try {
+            socket.receive(receivePacket);
+            return new ClientReply(receivePacket.getData());
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe);
+        }
+    }
+
+    public ClientReply getBackupSize() {
+        ClientRequest request = new ClientRequest(Command.GET_BACKUP_SIZE);
+        sendBytes(request.getRequest());
+        DatagramPacket receivePacket = new DatagramPacket(new byte[23], 23);
+        try {
+            socket.receive(receivePacket);
+            return new ClientReply(receivePacket.getData());
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe);
+        }
+    }
+
+    public ClientReply getFreeMemory() {
+        ClientRequest request = new ClientRequest(Command.GET_FREE_MEMORY);
+        sendBytes(request.getRequest());
+        DatagramPacket receivePacket = new DatagramPacket(new byte[27], 27);
+        try {
+            socket.receive(receivePacket);
+            return new ClientReply(receivePacket.getData());
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe);
+        }
+    }
 
     private void sendBytes(byte[] buffer) {
         DatagramPacket sendPacket = new DatagramPacket(buffer, buffer.length, serverAddress, serverPort);

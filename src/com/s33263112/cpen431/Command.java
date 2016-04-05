@@ -17,4 +17,7 @@ public class Command {
     public static byte REPLICATE_PLACEHOLDER = 0x27;
     public static byte REPLICATE_CLEAR = 0x28;
     public static byte REPLICATE_REMOVE = 0x29;
+    public static byte GET_STORE_SIZE = 0x30;
+    public static byte GET_BACKUP_SIZE = 0x31;
+    public static byte GET_FREE_MEMORY = 0x32;
 }
