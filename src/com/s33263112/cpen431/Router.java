@@ -15,7 +15,7 @@ import java.util.Map.Entry;
 public class Router {
 
     private static final String SERVER_LIST = "/util/server.list";
-    private static final Integer NUM_REPLICATES = 2; // Maintain 2 additional replicates
+    private static final Integer NUM_REPLICATES = 1; // Maintain 2 additional replicates
 
     private static Node myNode;
     private static final InetAddress myIp;

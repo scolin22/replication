@@ -58,6 +58,7 @@ public class Server implements Runnable {
                 pool.execute(new RequestHandler(receivePacket));
             } catch (RejectedExecutionException ree) {
                 // There are too many requests coming in. Don't process them normally otherwise the server could crash.
+                System.out.println("TOO MANY REQUESTS. SERVER OVERLOAD.");
             }
         }
         close();

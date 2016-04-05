@@ -26,7 +26,7 @@ public class Broadcaster implements Runnable {
 
             Backup.fetchReplicates();
 
-            Backup.printReplicates();
+            //Backup.printReplicates();
 
             //RequestHandler.printStoreSize();
 

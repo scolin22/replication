@@ -18,8 +18,8 @@ import org.junit.Test;
 public class CorrectnessTests {
     
     private static TestClient client;
-    private static String serverIp = "192.168.1.2";
-    private static int port = 45115;
+    private static String serverIp = "127.0.0.1";
+    private static int port = 45112;
     
     private byte[] randomByteArray(int n) {
         byte[] b = new byte[n];
@@ -257,20 +257,22 @@ public class CorrectnessTests {
             e.printStackTrace();
         }
 
-        client.shutdown();
+        //client.shutdown();
+        client.deleteAll();
 //        client = new TestClient(serverIp, 45114);
 //        client.shutdown();
 
-        try {
-            Thread.sleep(75000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(75000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
-        client = new TestClient(serverIp, 45111);
+        client = new TestClient(serverIp, 45113);
+        client.deleteAll();
         for (ByteKey key : hm.keySet()) {
             ClientReply reply = client.get(key.getKey());
-            if (reply != null && reply.getErrorCode() == ErrorCode.SUCCESS && Arrays.equals(hm.get(key).getKey(), reply.getValue())) {
+            if (reply != null && reply.getErrorCode() == ErrorCode.NON_EXISTANT_KEY) {
                 num_persists++;
             }
 //            assertEquals(ErrorCode.SUCCESS, reply.getErrorCode());

@@ -16,10 +16,6 @@ public class Backup {
     private static final int MIN_FREE_MEMORY = 8388608;
     private static final int MAX_STORE_SIZE = 100000;
 
-    static {
-
-    }
-
     public static synchronized void checkNodePrime() {
         boolean looped = false;
         for (ListIterator<Node> iter = Router.getAllNodes().listIterator(); iter.hasNext() && !looped;) {
@@ -90,6 +86,7 @@ public class Backup {
         }
 
         if (Runtime.getRuntime().freeMemory() <= MIN_FREE_MEMORY) {
+            System.out.println("OUT OF MEMORY");
             // Stop adding more items if we have less than MIN_FREE_MEMORY of memory left
             return false;
         } else if (store.size() >= MAX_STORE_SIZE) { //TODO: need to get total size across all stores
@@ -129,10 +126,6 @@ public class Backup {
     public static synchronized void delete(Integer backupID) {
         //System.out.println("Deleting: " + backupID);
         backups.remove(backupID);
-    }
-    
-    public static synchronized void clear() {
-        
     }
 
     public static synchronized void remove(ByteKey key, Integer backupID) {

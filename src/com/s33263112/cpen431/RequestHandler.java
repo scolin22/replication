@@ -10,6 +10,7 @@ import java.lang.management.ManagementFactory;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
@@ -135,6 +136,7 @@ public class RequestHandler implements Runnable {
      */
     private static synchronized boolean put(ByteKey key, byte[] value) {
         if (Runtime.getRuntime().freeMemory() <= MIN_FREE_MEMORY) {
+            System.out.println("OUT OF MEMORY");
             // Stop adding more items if we have less than MIN_FREE_MEMORY of memory left
             return false;
         } else if (store.size() >= MAX_STORE_SIZE) {
@@ -254,7 +256,7 @@ public class RequestHandler implements Runnable {
 
     private Reply handleGetPid(Request request) {
         int pid = Integer.parseInt(ManagementFactory.getRuntimeMXBean().getName().split("@")[0]);
-        return new Reply(request, ErrorCode.SUCCESS, ByteBuffer.allocate(4).putInt(pid).array());
+        return new Reply(request, ErrorCode.SUCCESS, ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(pid).array());
     }
     
     private boolean returnIfCached(Request request) {
