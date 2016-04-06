@@ -40,10 +40,10 @@ def deploy(ip):
     try:
         ssh.connect(ip, username=username, timeout=15)
 
-        execAndWait("mkdir " + remote_directory, ssh)
-        
         execAndWait(terminate_command, ssh)
 
+        execAndWait("mkdir " + remote_directory, ssh)
+        
         scpC = scp.SCPClient(ssh.get_transport())
         scpC.put(file_name, remote_directory)
 

@@ -28,9 +28,9 @@ public class Broadcaster implements Runnable {
 
             Backup.fetchReplicates();
 
-            Backup.printReplicates();
+            //Backup.printReplicates();
 
-            RequestHandler.printStoreSize();
+            //RequestHandler.printStoreSize();
 
             try {
                 Thread.sleep(INTERVAL);
