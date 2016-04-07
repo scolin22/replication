@@ -1,6 +1,8 @@
 package com.s33263112.cpen431;
 
 public class Broadcaster implements Runnable {
+    
+    public static final int INTERVAL = 5000;
 
     private volatile boolean running = true;
 
@@ -20,10 +22,21 @@ public class Broadcaster implements Runnable {
                         Request.createBroadcastRequest().toByteArray(), node.getAddress(), node.getPort());
             }
 
+            Backup.checkNodePrime();
+
+            Backup.pruneReplicates();
+
+            Backup.fetchReplicates();
+
+            //Backup.printReplicates();
+
+            //RequestHandler.printStoreSize();
+
             try {
-                Thread.sleep(15000);
+                Thread.sleep(INTERVAL);
             } catch (InterruptedException e) {
-                Server.close();
+                Server.close1();
+                Server.close2();
                 throw new RuntimeException(e);
             }
         }

@@ -29,4 +29,9 @@ public class ByteKey {
     public int hashCode() {
         return Arrays.hashCode(key);
     }
+
+    @Override
+    public String toString() {
+        return StringUtils.byteArrayToHexString(key);
+    }
 }

@@ -1,17 +1,19 @@
 package com.s33263112.cpen431;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.SocketException;
+import java.net.*;
 
 public class NetworkHandler {
 
     private DatagramSocket socket;
-    
+
     public NetworkHandler(int port) {
         socket = createUdpSocket(port);
+//        try {
+//            System.out.println("Server running on: " + InetAddress.getLocalHost() + ":" + socket.getLocalPort() + " Key: " + Router.hash(Router.getMyNode()));
+//        } catch (UnknownHostException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void close() {

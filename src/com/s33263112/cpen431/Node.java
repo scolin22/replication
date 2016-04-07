@@ -28,4 +28,9 @@ public class Node {
     public int getPort() {
         return port;
     }
+    
+    @Override
+    public String toString() {
+        return String.format("%s:%s", address.toString(), port);
+    }
 }

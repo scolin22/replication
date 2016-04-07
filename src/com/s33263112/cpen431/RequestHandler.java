@@ -6,9 +6,14 @@
 
 package com.s33263112.cpen431;
 
+import java.lang.management.ManagementFactory;
+import java.math.BigInteger;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class RequestHandler implements Runnable {
@@ -22,8 +27,18 @@ public class RequestHandler implements Runnable {
 
     private DatagramPacket packet;
 
+    public static Map<ByteKey, byte[]> getStore() {
+        return store;
+    }
+
     public RequestHandler(DatagramPacket packet) {
         this.packet = packet;
+    }
+
+    private static byte[] randomByteArray(int n) {
+        byte[] b = new byte[n];
+        new Random().nextBytes(b);
+        return b;
     }
     
     @Override
@@ -45,8 +60,14 @@ public class RequestHandler implements Runnable {
                     reply = handleGet(request);
                 } else if (request.getCommand() == Command.PUT) {
                     reply = handlePut(request);
+                    if (reply.getErrorCode() == ErrorCode.SUCCESS) {
+                        replicatePutRequest(request);
+                    }
                 } else if (request.getCommand() == Command.REMOVE) {
                     reply = handleRemove(request);
+                    if (reply.getErrorCode() == ErrorCode.SUCCESS) {
+                        replicateRemoveRequest(request);
+                    }
                 }
                 sendReply(reply);
             } else {
@@ -67,16 +88,45 @@ public class RequestHandler implements Runnable {
         } else if (request.getCommand() == Command.INTERNAL_PUT) {
             reply = handlePut(request);
             sendReply(reply, request.getReplyAddress(), request.getReplyPort());
+            if (reply.getErrorCode() == ErrorCode.SUCCESS) {
+                replicatePutRequest(request);
+            }
         } else if (request.getCommand() == Command.INTERNAL_REMOVE) {
             reply = handleRemove(request);
             sendReply(reply, request.getReplyAddress(), request.getReplyPort());
+            if (reply.getErrorCode() == ErrorCode.SUCCESS) {
+                replicateRemoveRequest(request);
+            }
+        } else if (request.getCommand() == Command.REPLICATE_PUT) {
+            handleReplicatePut(request);
+        } else if (request.getCommand() == Command.REPLICATE_GET) {
+            handleReplicateGet(request);
+        } else if (request.getCommand() == Command.REPLICATE_REMOVE) {
+            handleReplicateRemove(request);
+        } else if (request.getCommand() == Command.REPLICATE_CLEAR) {
+            handleReplicateClear(request);
+        } else if (request.getCommand() == Command.REPLICATE_PLACEHOLDER) {
+            handleReplicatePlaceholder(request);
         } else if (request.getCommand() == Command.SHUTDOWN) {
             handleShutdown(request);
         } else if (request.getCommand() == Command.DELETE_ALL) {
             reply = handleDeleteAll(request);
             sendReply(reply);
+            if (reply.getErrorCode() == ErrorCode.SUCCESS) {
+                replicateClearRequest(request);
+            }
+            System.gc();
+        } else if (request.getCommand() == Command.GET_PID) {
+            sendReply(handleGetPid(request));
         } else if (request.getCommand() == Command.INTERNAL_BROADCAST) {
             Router.update(packet.getAddress(), packet.getPort());
+        } else if (request.getCommand() == Command.GET_STORE_SIZE) {
+            sendReply(handleGetStoreSize(request));
+        } else if (request.getCommand() == Command.GET_BACKUP_SIZE) {
+            sendReply(handleGetBackupSize(request));
+        } else if (request.getCommand() == Command.GET_FREE_MEMORY) {
+            Reply r = handleGetFreeMemory(request);
+            sendReply(r);
         } else {
             reply = new Reply(request, ErrorCode.UNRECOGNIZED_COMMAND);
             sendReply(reply);
@@ -95,6 +145,7 @@ public class RequestHandler implements Runnable {
      */
     private static synchronized boolean put(ByteKey key, byte[] value) {
         if (Runtime.getRuntime().freeMemory() <= MIN_FREE_MEMORY) {
+            System.out.println("OUT OF MEMORY IN REQUESTHANDLER");
             // Stop adding more items if we have less than MIN_FREE_MEMORY of memory left
             return false;
         } else if (store.size() >= MAX_STORE_SIZE) {
@@ -133,6 +184,48 @@ public class RequestHandler implements Runnable {
             return new Reply(request, ErrorCode.OUT_OF_SPACE);
         }
     }
+
+    public void handleReplicatePut(Request request) {
+        ByteKey key = new ByteKey(request.getKey());
+        BigInteger backupID = Router.hash(request.getReplyAddress().getAddress(), request.getReplyPort());
+        Backup.put(backupID, key, request.getValue());
+    }
+
+    private void replicatePutRequest(Request r) {
+        Request replicateRequest = new Request(Command.REPLICATE_PUT);
+        replicateRequest.setRequestId(randomByteArray(16));
+        replicateRequest.setKey(r.getKey());
+        replicateRequest.setValue(r.getValue());
+        replicateRequest.setValueLength(r.getValueLength());
+        replicateRequest.setReplyAddress(Router.getMyIp());
+        replicateRequest.setReplyPort(Router.getMyPort());
+        for (Node replicateNode : Router.getReplicateServers(Router.getMyNode())) {
+            forwardRequest(replicateRequest, replicateNode);
+        }
+    }
+
+    private void replicateRemoveRequest(Request r) {
+        Request replicateRequest = new Request(Command.REPLICATE_REMOVE);
+        replicateRequest.setRequestId(randomByteArray(16));
+        replicateRequest.setKey(r.getKey());
+        replicateRequest.setReplyAddress(Router.getMyIp());
+        replicateRequest.setReplyPort(Router.getMyPort());
+        for (Node replicateNode : Router.getReplicateServers(Router.getMyNode())) {
+            forwardRequest(replicateRequest, replicateNode);
+        }
+    }
+
+    private void handleReplicateGet(Request request) {
+        Backup.replicate(store, Router.findNodeForKey(Router.hash(request.getReplyAddress().getAddress(), request.getReplyPort())));
+    }
+
+    private void handleReplicateRemove(Request request) {
+        Backup.remove(new ByteKey(request.getKey()), Router.hash(request.getReplyAddress().getAddress(), request.getReplyPort()));
+    }
+
+    private void handleReplicatePlaceholder(Request request) {
+        Backup.placeHolder(Router.hash(request.getReplyAddress().getAddress(), request.getReplyPort()));
+    }
     
     private Reply handleRemove(Request request) {
         ByteKey key = new ByteKey(request.getKey());
@@ -145,9 +238,10 @@ public class RequestHandler implements Runnable {
     }
 
     private void handleShutdown(Request request) {
+        Server.close1();
         sendReply(new Reply(request, ErrorCode.SUCCESS));
         System.out.println("Shutting down because of shutdown command");
-        Server.close();
+        Server.close2();
     }
     
     private Reply handleDeleteAll(Request request) {
@@ -155,7 +249,39 @@ public class RequestHandler implements Runnable {
         System.gc();
         return new Reply(request, ErrorCode.SUCCESS);
     }
+
+    private void replicateClearRequest(Request r) {
+        Request replicateRequest = new Request(Command.REPLICATE_CLEAR);
+        replicateRequest.setRequestId(randomByteArray(16));
+        replicateRequest.setReplyAddress(Router.getMyIp());
+        replicateRequest.setReplyPort(Router.getMyPort());
+        for (Node replicateNode : Router.getReplicateServers(Router.getMyNode())) {
+            forwardRequest(replicateRequest, replicateNode);
+        }
+    }
+
+    private void handleReplicateClear(Request request) {
+        Backup.clear(Router.hash(request.getReplyAddress().getAddress(), request.getReplyPort()));
+        System.gc();
+    }
+
+    private Reply handleGetPid(Request request) {
+        int pid = Integer.parseInt(ManagementFactory.getRuntimeMXBean().getName().split("@")[0]);
+        return new Reply(request, ErrorCode.SUCCESS, ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(pid).array());
+    }
+
+    private Reply handleGetStoreSize(Request request) {
+        return new Reply(request, ErrorCode.SUCCESS, ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(store.size()).array());
+    }
     
+    private Reply handleGetBackupSize(Request request) {
+        return new Reply(request, ErrorCode.SUCCESS, ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(Backup.getTotalSize()).array());
+    }
+    
+    private Reply handleGetFreeMemory(Request request) {
+        return new Reply(request, ErrorCode.SUCCESS, ByteBuffer.allocate(8).order(ByteOrder.LITTLE_ENDIAN).putLong(Runtime.getRuntime().freeMemory()).array());
+    }
+
     private boolean returnIfCached(Request request) {
         Reply reply = Server.cacher.get(request);
         if (reply != null) {
@@ -184,5 +310,9 @@ public class RequestHandler implements Runnable {
     private void forwardRequest(Request request, Node node) {
         //System.out.println("Forwarding to " + node.getAddress().toString() + ":" + node.getPort() + ": " + request.toString());
         Server.networkHandler.sendBytes(request.toByteArray(), node.getAddress(), node.getPort());
+    }
+
+    public static void printStoreSize() {
+        System.out.println("Holding: " + store.size() + " keys");
     }
 }
