@@ -10,7 +10,7 @@ import java.nio.ByteOrder;
 
 public class AliveTests {
 
-    @Test
+    //@Test
     public void testAll() {
         System.out.println("testAll");
         for (Node node : Router.getAllNodes()) {
@@ -30,7 +30,7 @@ public class AliveTests {
         }
     }
     
-    @Test
+    //@Test
     public void testSize() {
         System.out.println("testSize");
         for (Node node : Router.getAllNodes()) {
@@ -49,7 +49,7 @@ public class AliveTests {
         }
     }
     
-    @Test
+    //@Test
     public void testBackupSize() {
         System.out.println("testBackupSize");
         for (Node node : Router.getAllNodes()) {
